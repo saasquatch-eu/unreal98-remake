@@ -33,6 +33,11 @@ Saved/
 /data/local/
 /data/extracted/
 /data/converted/
+# Original-game imports and derived UE5 content remain private. Track only the
+# prepared directory structure until redistribution rights are recorded.
+/ue5/UnrealRemaster/Content/Unreal/**
+!/ue5/UnrealRemaster/Content/Unreal/**/
+!/ue5/UnrealRemaster/Content/Unreal/**/.gitkeep
 *.unr
 *.utx
 *.uax

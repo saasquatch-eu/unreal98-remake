@@ -2,8 +2,14 @@
 
 ## Scope and intent
 
-- The current assignment is **UR-002**: create and validate the minimal native
-  UE5 C++ project. Conversion, importer, and gameplay work need a separate request.
+- UR-002's native C++ foundation is complete. The current assignment is to prepare
+  the castle intro as the first content target: the original map is `Unreal.unr`.
+  Keep Vortex Rikers (`Vortex2.unr`) for the later gameplay milestone.
+- Preserve original resource stems, case, package names, and groups. New UE5 asset
+  names receive the lowercase `_ue5` suffix before their extension, such as
+  `Unreal_ue5.umap`. Follow `docs/resource-naming.md` for paths and exceptions.
+- Folder preparation does not authorize a full converter, importer, or gameplay
+  implementation. Empty content directories are not working UE5 assets.
 - Preserve Unreal (1998) gameplay and geometry; modernize visuals incrementally.
 - Work in small issues with explicit acceptance criteria. Inspect existing files
   before editing. Do not generate an entire game or introduce speculative systems.
@@ -18,6 +24,9 @@
   a developer's paths in implementation files.
 - Ask before installing/updating system software or changing system configuration.
   Project-local dependencies belong in `.venv`.
+- The user wants to know which tools are used. Work with the existing Python,
+  bundled Unreal UCC, Git/GitHub, and UE5 tooling; inform the user before using an
+  additional program. No extra software is needed for folder preparation.
 - Keep engine binaries, caches, build outputs, private exports, and secrets out of
   Git. The engine baseline is recorded in `engine-version.json`.
 
