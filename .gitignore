@@ -1,0 +1,53 @@
+# Python environments, builds, and tooling
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+build/
+dist/
+
+# Unreal generated files (also applies inside future plugins)
+Binaries/
+DerivedDataCache/
+Intermediate/
+Saved/
+.vs/
+*.sln
+*.suo
+*.sdf
+*.opensdf
+*.VC.db
+*.VC.opendb
+*.xcworkspace/
+*.xcodeproj/
+*.xcuserstate
+
+# Private source installations and real exports
+/reference/local/
+/data/local/
+/data/extracted/
+/data/converted/
+*.unr
+*.utx
+*.uax
+*.umx
+*.u
+*.uc
+
+# Local configuration, logs, and editor files
+.env
+.env.*
+!.env.example
+.local/
+*.log
+.idea/
+.vscode/
+.DS_Store
+._*
+*~
