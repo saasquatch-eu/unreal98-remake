@@ -2,8 +2,8 @@
 
 ## Scope and intent
 
-- The current assignment is **setup only**. Do not start UE C++ project creation,
-  conversion, importer, or gameplay work until the user requests development.
+- The current assignment is **UR-002**: create and validate the minimal native
+  UE5 C++ project. Conversion, importer, and gameplay work need a separate request.
 - Preserve Unreal (1998) gameplay and geometry; modernize visuals incrementally.
 - Work in small issues with explicit acceptance criteria. Inspect existing files
   before editing. Do not generate an entire game or introduce speculative systems.

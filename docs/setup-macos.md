@@ -29,8 +29,8 @@ ranges live in `pyproject.toml`; transitive dependencies are not locked yet.
 
 ## Xcode and Unreal Engine
 
-The current system developer selection is Command Line Tools. Use a process
-override for future engine commands:
+Full Xcode and Metal are now selected and working on the development Mac. For an
+alternate installed Xcode or engine location, use process overrides:
 
 ```sh
 export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
@@ -80,17 +80,33 @@ replace Xcode or the engine solely on the basis of this setup preflight.
 
 ## Git and later dependencies
 
-The local repository uses a setup branch for review. No remote repository,
-commit, push, or PR is needed for this setup assignment. Choose the GitHub owner,
-visibility, code license, and remote when publishing is requested.
+The project uses the existing private GitHub repository
+`https://github.com/saasquatch-eu/unreal98-remake`. Use feature branches and pull
+requests for review. Public distribution and the code license remain separate
+decisions; no original Unreal assets are included.
 
 Git LFS, Blender, and the GitHub CLI are optional at this stage and have not been
 installed. Configure Git LFS before introducing permitted large binary assets.
 No original game installations, exports, or assets are downloaded by setup.
 
-## What remains for development
+## Build and open
 
-Only after development is requested, create a minimal C++ project under
-`ue5/UnrealRemaster/`, build its editor target for Mac arm64, then launch it and
-record the exact build command, log, and editor result. No `.uproject`, generated
-runtime module, parser, or importer is created as part of setup.
+UR-002 created the minimal project at `ue5/UnrealRemaster/UnrealRemaster.uproject`.
+The following commands run from the repository root:
+
+```sh
+bash scripts/build-ue5.sh
+bash scripts/open-ue5.sh
+```
+
+The first command validates the environment and builds UnrealRemasterEditor for
+Mac Development arm64. Its log is `.local/logs/ue5-build.log`. The second opens the
+built project in the installed editor. The initial map is the engine's empty Entry
+map. The project does not yet contain gameplay or converted content.
+
+English interface language and locale were requested for this workstation. The
+per-user preference is `[Internationalization]` with `Language=en` and `Locale=en`
+in `~/Library/Application Support/Epic/UnrealEngine/5.8/Saved/Config/MacEditor/EditorSettings.ini`.
+It takes effect on editor restart and is not committed as a project-wide setting.
+
+See `milestones/002-native-cpp-project.md` for results and scope limits.

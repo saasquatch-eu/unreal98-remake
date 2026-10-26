@@ -3,13 +3,14 @@
 A planned Unreal Engine 5 visual remaster that preserves the original gameplay,
 level geometry, atmosphere, and pacing. This is an independent personal project.
 
-**Status: setup only.** No conversion, importer, gameplay, or UE C++ project has
-been implemented. The Python package is an empty, installable scaffold.
+**Status: UR-002 native C++ foundation verified.** The minimal UE project builds
+for Mac arm64 and opens in Unreal Editor. Conversion, importer, and gameplay work
+have not started. The Python package remains an empty, installable scaffold.
 
 ## Setup
 
 Use macOS on Apple Silicon, full Xcode, Python 3.12+, and Git. The installed engine
-baseline is UE **5.8.4**; compilation compatibility has not yet been established.
+baseline is UE **5.8.4**, verified with Xcode 27.1 on this development Mac.
 
 ```sh
 cd /Users/arekczub14/Repos/SaaSquatch/unreal98-remake
@@ -36,11 +37,27 @@ results and outstanding work.
 | `schemas/` | Future intermediate representation contracts |
 | `data/{fixtures,manifests}/` | Future synthetic fixtures and manifests |
 | `reference/` | Reference handling policy; local files remain ignored |
-| `ue5/` | Reserved engine workspace; no `.uproject` yet |
+| `ue5/UnrealRemaster/` | Minimal C++ project, source targets, and configuration |
 | `scripts/` | Local setup, validation, and test commands |
 
 Original Unreal maps, textures, models, sounds, and source must remain local and
 untracked. See [content and licensing boundaries](docs/legal-and-licensing.md).
 
-Next work, only when requested: UR-002, create and compile a minimal native UE C++
-project. Conversion and gameplay work follow separate issues.
+## Build and open the project
+
+```sh
+bash scripts/build-ue5.sh
+bash scripts/open-ue5.sh
+```
+
+You can also open `ue5/UnrealRemaster/UnrealRemaster.uproject` after the first
+build. It opens the engine's empty Entry map; no remaster level is expected yet.
+The build script validates prerequisites, selects the pinned engine, and saves
+its log under ignored `.local/logs/`. `UE_ROOT` can override the engine location.
+
+See [UR-002 results](docs/milestones/002-native-cpp-project.md) for executed checks
+and their limits. Development is tracked in the existing private
+[GitHub repository](https://github.com/saasquatch-eu/unreal98-remake).
+
+Next issue, when requested: **UR-003**, validate a local UE1 map export before
+designing any conversion functionality.

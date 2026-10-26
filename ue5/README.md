@@ -1,8 +1,15 @@
 # Unreal Engine workspace
 
-Reserved for a future `UnrealRemaster/` C++ project and editor importer plugin.
-UE **5.8.4** is the installed setup baseline (see `../engine-version.json`).
+`UnrealRemaster/UnrealRemaster.uproject` is the minimal C++ project for UE **5.8.4**
+(see `../engine-version.json`). Its editor target builds for native Mac arm64.
 
-No project or feature code is generated while the assignment is limited to setup.
-The engine installation stays outside the repository. Compiler and editor checks
-must be performed when project creation is requested.
+From the repository root, run `bash scripts/build-ue5.sh` and then
+`bash scripts/open-ue5.sh`. Subsequent launches can use the `.uproject` directly.
+The empty engine Entry map is the startup map. The runtime module logs its load;
+it does not implement gameplay. There are no converted original game assets.
+
+The unused Android File Server plugin is disabled for this Mac foundation. Native
+build outputs, editor state, and caches remain ignored. The engine installation
+stays outside this repository; the Entry map is referenced rather than copied.
+
+See `../docs/milestones/002-native-cpp-project.md` for verification evidence.
