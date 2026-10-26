@@ -30,7 +30,7 @@ compiler version commands, rather than merely checking for shim paths.
 | Check | Result |
 | --- | --- |
 | macOS preflight | Exit 0, no required failures |
-| Native editor build | UnrealRemasterEditor / Mac / Development / arm64; succeeded |
+| Native editor build | UnrealGoldRemakeEditor / Mac / Development / arm64; succeeded |
 | Built library architecture | `lipo` verified arm64; `file` reports a native arm64 dylib |
 | Project module loading | Startup log confirms the primary C++ module loaded |
 | Editor and Metal startup | Engine initialization, M4 Max adapter, and Metal viewport creation confirmed in log |
@@ -38,6 +38,7 @@ compiler version commands, rather than merely checking for shim paths.
 | Python installation smoke test | 1 passed during setup |
 | Python dependency check | No broken requirements during setup |
 | Changed shell scripts | `bash -n` passed |
+| Direct editor connection | Native MCP queries identify UnrealGoldRemake, Entry, and Play mode off |
 
 The user requested English editor language and locale. These preferences are
 stored in the user's UE 5.8 `EditorSettings.ini`, with a local backup under
@@ -54,4 +55,7 @@ The virtual environment depends on the existing Codex runtime cache. A standalon
 Python installation can replace it later with approval. Only the editor target has
 been compiled; standalone builds, packaging, gameplay, and original content
 conversion remain outside this milestone. Detailed commands and evidence are in
-`milestones/002-native-cpp-project.md`.
+`milestones/002-native-cpp-project.md`. The renamed editor target was rebuilt
+successfully in 20.18 seconds after moving the old generated outputs to a local
+backup. Current connection and rename evidence is in
+`milestones/004-editor-connection-project-rename.md`.

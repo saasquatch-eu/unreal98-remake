@@ -123,8 +123,8 @@ if [[ -f "$engine_root/Engine/Build/BatchFiles/Mac/Build.sh" ]]; then
 else
     fail 'Unreal build entry script is missing.'
 fi
-if [[ -f "$repo_root/ue5/UnrealRemaster/UnrealRemaster.uproject" ]]; then
-    pass 'UnrealRemaster project descriptor exists. This preflight does not establish build or launch success.'
+if [[ -f "$repo_root/ue5/UnrealGoldRemake/UnrealGoldRemake.uproject" ]]; then
+    pass 'UnrealGoldRemake project descriptor exists. This preflight does not establish build or launch success.'
 else
     warn 'No UE project exists yet. C++ compilation, editor launch, and rendering remain unverified.'
 fi

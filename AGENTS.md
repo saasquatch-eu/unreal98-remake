@@ -32,6 +32,15 @@
 
 ## Checks and reporting
 
+- The UE5 editor connection uses the installed Unreal MCP skill and the bundled
+  `ModelContextProtocol` and `AllToolsets` plugins, enabled for Editor targets.
+  Follow `docs/ue5-editor-connection.md`; reuse the installed Codex plugin's
+  localhost connection rather than adding a duplicate client configuration.
+- Before live edits, verify the connected project is UnrealGoldRemake and save
+  affected work. Discover current tool schemas, serialize dependent mutations,
+  and verify returned results. Connection setup itself does not authorize asset
+  conversion or gameplay work.
+
 - Run `bash scripts/run-tests.sh` for Python changes, and `bash -n` on changed
   shell scripts. Run the environment validator when changing setup tooling.
 - Future C++ changes require an actual engine build when available. Report exact

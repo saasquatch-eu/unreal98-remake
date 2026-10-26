@@ -1,8 +1,8 @@
 using UnrealBuildTool;
 
-public class UnrealRemaster : ModuleRules
+public class UnrealGoldRemake : ModuleRules
 {
-    public UnrealRemaster(ReadOnlyTargetRules Target) : base(Target)
+    public UnrealGoldRemake(ReadOnlyTargetRules Target) : base(Target)
     {
         PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
         PublicDependencyModuleNames.AddRange(new[] { "Core", "CoreUObject", "Engine" });

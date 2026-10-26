@@ -1,6 +1,6 @@
 # Unreal Engine workspace
 
-`UnrealRemaster/UnrealRemaster.uproject` is the minimal C++ project for UE **5.8.4**
+`UnrealGoldRemake/UnrealGoldRemake.uproject` is the minimal C++ project for UE **5.8.4**
 (see `../engine-version.json`). Its editor target builds for native Mac arm64.
 
 From the repository root, run `bash scripts/build-ue5.sh` and then

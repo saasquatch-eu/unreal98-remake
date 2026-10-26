@@ -46,7 +46,7 @@ behavior still require validation.
 - Raw intro export: `data/local/Unreal/Maps/Unreal/Unreal.t3d`.
 - Retained Vortex export: `data/local/Unreal/Maps/Vortex2/Vortex2.t3d`.
 - Conversion workspace: `data/converted/Unreal/`, currently empty.
-- UE5 content categories: `ue5/UnrealRemaster/Content/Unreal/`, placeholders only.
+- UE5 content categories: `ue5/UnrealGoldRemake/Content/Unreal/`, placeholders only.
 - Naming/provenance rules: `../resource-naming.md`.
 
 The original generic UCC filename was `MyLevel.t3d`. Renaming the stored exports
