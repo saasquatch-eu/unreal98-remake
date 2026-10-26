@@ -5,7 +5,9 @@ level geometry, atmosphere, and pacing. This is an independent personal project.
 
 **Status: UR-002 native C++ foundation verified.** The minimal UE project builds
 for Mac arm64 and opens in Unreal Editor. Conversion, importer, and gameplay work
-have not started. The Python package remains an empty, installable scaffold.
+have not started. The castle intro (`Unreal.unr`) is the first content target;
+its native UCC export and private working folders are ready. The Python package
+remains an empty, installable scaffold.
 
 ## Setup
 
@@ -36,6 +38,8 @@ results and outstanding work.
 | `tools/{extract,convert,validate}/` | Reserved tooling directories |
 | `schemas/` | Future intermediate representation contracts |
 | `data/{fixtures,manifests}/` | Future synthetic fixtures and manifests |
+| `data/local/Unreal/` | Private exports with original map/resource names; ignored |
+| `data/converted/Unreal/` | Private intermediate-content folders; ignored, empty |
 | `reference/` | Reference handling policy; local files remain ignored |
 | `ue5/UnrealRemaster/` | Minimal C++ project, source targets, and configuration |
 | `scripts/` | Local setup, validation, and test commands |
@@ -59,5 +63,17 @@ See [UR-002 results](docs/milestones/002-native-cpp-project.md) for executed che
 and their limits. Development is tracked in the existing private
 [GitHub repository](https://github.com/saasquatch-eu/unreal98-remake).
 
-Next issue, when requested: **UR-003**, validate a local UE1 map export before
-designing any conversion functionality.
+The first content target is the **castle intro**, whose original filename is
+`Unreal.unr`. Its raw export is `data/local/Unreal/Maps/Unreal/Unreal.t3d`. The
+Vortex Rikers export is retained under `data/local/Unreal/Maps/Vortex2/Vortex2.t3d`.
+Both are private and untracked.
+
+The prepared UE5 folders are under `ue5/UnrealRemaster/Content/Unreal/`. Future
+intro assets use original source names plus `_ue5`, including
+`Maps/Unreal_ue5.umap` and `Cinematics/Unreal_ue5.uasset`. These assets do not exist
+yet; the editor still opens Entry.
+
+See [resource naming](docs/resource-naming.md) and the
+[intro preparation report](docs/milestones/003-unreal-intro-preparation.md).
+Next comes parsing the real intro export and validating evaluated BSP geometry,
+before importing assets or recreating its flyby camera.

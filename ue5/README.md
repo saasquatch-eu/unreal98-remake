@@ -13,3 +13,17 @@ build outputs, editor state, and caches remain ignored. The engine installation
 stays outside this repository; the Entry map is referenced rather than copied.
 
 See `../docs/milestones/002-native-cpp-project.md` for verification evidence.
+
+## First content target: Unreal castle intro
+
+`Content/Unreal/` has prepared folders for Maps, Meshes, Textures, Materials,
+Sounds, Music, Cinematics, and Blueprints. They contain placeholders only.
+The planned intro level is `/Game/Unreal/Maps/Unreal_ue5`, based on the original
+`Unreal.unr`. The planned camera sequence is
+`/Game/Unreal/Cinematics/Unreal_ue5`. Neither asset has been created yet.
+
+Use source package/group names below each resource category, preserve case, and
+append `_ue5` to each new UE5 asset name. See `../docs/resource-naming.md`.
+Original-game-derived content under this root is ignored by Git; only directory
+placeholders are tracked. The startup map remains Entry until a real imported
+level is created and validated.

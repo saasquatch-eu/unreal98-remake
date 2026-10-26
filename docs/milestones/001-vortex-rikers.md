@@ -1,4 +1,9 @@
-# First future milestone: Vortex Rikers prototype
+# Later gameplay milestone: Vortex Rikers (Vortex2)
+
+The first visual target is now the castle intro, `Unreal.unr`; see
+`003-unreal-intro-preparation.md`. Vortex Rikers remains the later milestone for
+player movement, collision, triggers, moving objects, pickups, and progression.
+Keep its original map stem `Vortex2`; a future UE5 level is `Vortex2_ue5.umap`.
 
 Validate a representative section rather than promise a complete converted map.
 No schedule is committed during setup.
