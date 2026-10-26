@@ -5,7 +5,7 @@
   "Description": "Minimal native C++ foundation for the Unreal (1998) remaster.",
   "Modules": [
     {
-      "Name": "UnrealRemaster",
+      "Name": "UnrealGoldRemake",
       "Type": "Runtime",
       "LoadingPhase": "Default"
     }

@@ -36,7 +36,7 @@
   `ModelContextProtocol` and `AllToolsets` plugins, enabled for Editor targets.
   Follow `docs/ue5-editor-connection.md`; reuse the installed Codex plugin's
   localhost connection rather than adding a duplicate client configuration.
-- Before live edits, verify the connected project is UnrealRemaster and save
+- Before live edits, verify the connected project is UnrealGoldRemake and save
   affected work. Discover current tool schemas, serialize dependent mutations,
   and verify returned results. Connection setup itself does not authorize asset
   conversion or gameplay work.

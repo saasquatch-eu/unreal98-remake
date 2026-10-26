@@ -24,7 +24,7 @@ endpoint in its bundled `mcp.json` and `.mcp.json`. Reuse it; do not add duplica
 entries to the project's or user's Codex configuration.
 
 For this workstation, the ignored file
-`ue5/UnrealRemaster/Saved/Config/MacEditor/EditorPerProjectUserSettings.ini`
+`ue5/UnrealGoldRemake/Saved/Config/MacEditor/EditorPerProjectUserSettings.ini`
 contains:
 
 ```ini
@@ -49,7 +49,7 @@ connection. Verify all of the following:
 2. Unreal logs successful MCP startup and listener creation on localhost.
 3. An MCP initialization and `tools/list` request succeed.
 4. Discover toolsets and their current tool schemas, then execute a read-only
-   query that identifies UnrealRemaster or its current editor world.
+   query that identifies UnrealGoldRemake or its current editor world.
 5. Discover any project Agent Skills before using unfamiliar live workflows.
 
 With tool-search mode enabled, the native MCP catalog contains `list_toolsets`,
@@ -84,5 +84,8 @@ no `Error:` entries.
 The Unreal MCP tools became available directly in the chat. Native read-only tool
 calls returned the configured project name and `/Engine/Maps/Entry`; Play mode was
 off and project Agent Skill discovery succeeded. The connection was verified
-again after an editor restart. No extra client configuration, proxy, asset
+again after an editor restart and after renaming the project to UnrealGoldRemake.
+After the rename, a retained client session initially produced an unknown-session
+message; the native client reinitialized successfully. Subsequent native queries
+returned `projectName: UnrealGoldRemake`, Entry, and Play mode off. No extra client configuration, proxy, asset
 generation service, or external software was installed.

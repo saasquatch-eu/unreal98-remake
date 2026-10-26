@@ -4,9 +4,9 @@ set -euo pipefail
 
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 engine_root="${UE_ROOT:-/Users/Shared/Epic Games/UE_5.8}"
-project_file="$repo_root/ue5/UnrealRemaster/UnrealRemaster.uproject"
+project_file="$repo_root/ue5/UnrealGoldRemake/UnrealGoldRemake.uproject"
 editor_binary="$engine_root/Engine/Binaries/Mac/UnrealEditor.app/Contents/MacOS/UnrealEditor"
-module_binary="$repo_root/ue5/UnrealRemaster/Binaries/Mac/libUnrealEditor-UnrealRemaster.dylib"
+module_binary="$repo_root/ue5/UnrealGoldRemake/Binaries/Mac/libUnrealEditor-UnrealGoldRemake.dylib"
 
 if [[ ! -f "$project_file" || ! -f "$module_binary" ]]; then
     printf 'Build the project first: bash scripts/build-ue5.sh\n' >&2

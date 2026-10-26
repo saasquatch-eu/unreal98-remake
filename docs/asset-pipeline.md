@@ -14,7 +14,7 @@ The castle intro is the first content target. Preserve each map's original name:
 1. Raw exports: `data/local/Unreal/Maps/<Map>/<Map>.t3d`.
 2. Future intermediate output: `data/converted/Unreal/Maps/<Map>/`, with shared
    resources grouped by original package and group under the other categories.
-3. Future UE5 assets: `ue5/UnrealRemaster/Content/Unreal/`, with the `_ue5` suffix
+3. Future UE5 assets: `ue5/UnrealGoldRemake/Content/Unreal/`, with the `_ue5` suffix
    on asset names. These imported assets remain ignored pending rights review.
 
 See `resource-naming.md` for concrete source-name mappings. The folders exist;

@@ -42,7 +42,7 @@ data/converted/Unreal/                # private, ignored; currently empty
   Sounds/
   Music/
 
-ue5/UnrealRemaster/Content/Unreal/     # only directory placeholders exist
+ue5/UnrealGoldRemake/Content/Unreal/     # only directory placeholders exist
   Maps/
   Meshes/
   Textures/

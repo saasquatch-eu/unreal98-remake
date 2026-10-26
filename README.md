@@ -1,4 +1,4 @@
-# Unreal (1998) Remake
+# UnrealGoldRemake
 
 A planned Unreal Engine 5 visual remaster that preserves the original gameplay,
 level geometry, atmosphere, and pacing. This is an independent personal project.
@@ -7,7 +7,9 @@ level geometry, atmosphere, and pacing. This is an independent personal project.
 for Mac arm64 and opens in Unreal Editor. Conversion, importer, and gameplay work
 have not started. The castle intro (`Unreal.unr`) is the first content target;
 its native UCC export and private working folders are ready. The Python package
-remains an empty, installable scaffold.
+remains an empty, installable scaffold. The project is now named
+**UnrealGoldRemake**, with a verified direct editor connection. See the
+[connection and rename report](docs/milestones/004-editor-connection-project-rename.md).
 
 ## Setup
 
@@ -41,7 +43,7 @@ results and outstanding work.
 | `data/local/Unreal/` | Private exports with original map/resource names; ignored |
 | `data/converted/Unreal/` | Private intermediate-content folders; ignored, empty |
 | `reference/` | Reference handling policy; local files remain ignored |
-| `ue5/UnrealRemaster/` | Minimal C++ project, source targets, and configuration |
+| `ue5/UnrealGoldRemake/` | Minimal C++ project, source targets, and configuration |
 | `scripts/` | Local setup, validation, and test commands |
 
 Original Unreal maps, textures, models, sounds, and source must remain local and
@@ -54,7 +56,7 @@ bash scripts/build-ue5.sh
 bash scripts/open-ue5.sh
 ```
 
-You can also open `ue5/UnrealRemaster/UnrealRemaster.uproject` after the first
+You can also open `ue5/UnrealGoldRemake/UnrealGoldRemake.uproject` after the first
 build. It opens the engine's empty Entry map; no remaster level is expected yet.
 The build script validates prerequisites, selects the pinned engine, and saves
 its log under ignored `.local/logs/`. `UE_ROOT` can override the engine location.
@@ -73,7 +75,7 @@ The first content target is the **castle intro**, whose original filename is
 Vortex Rikers export is retained under `data/local/Unreal/Maps/Vortex2/Vortex2.t3d`.
 Both are private and untracked.
 
-The prepared UE5 folders are under `ue5/UnrealRemaster/Content/Unreal/`. Future
+The prepared UE5 folders are under `ue5/UnrealGoldRemake/Content/Unreal/`. Future
 intro assets use original source names plus `_ue5`, including
 `Maps/Unreal_ue5.umap` and `Cinematics/Unreal_ue5.uasset`. These assets do not exist
 yet; the editor still opens Entry.

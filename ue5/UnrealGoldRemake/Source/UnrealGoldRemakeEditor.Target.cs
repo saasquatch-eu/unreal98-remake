@@ -1,12 +1,12 @@
 using UnrealBuildTool;
 
-public class UnrealRemasterEditorTarget : TargetRules
+public class UnrealGoldRemakeEditorTarget : TargetRules
 {
-    public UnrealRemasterEditorTarget(TargetInfo Target) : base(Target)
+    public UnrealGoldRemakeEditorTarget(TargetInfo Target) : base(Target)
     {
         Type = TargetType.Editor;
         DefaultBuildSettings = BuildSettingsVersion.V7;
         IncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_8;
-        ExtraModuleNames.Add("UnrealRemaster");
+        ExtraModuleNames.Add("UnrealGoldRemake");
     }
 }

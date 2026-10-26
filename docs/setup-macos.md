@@ -91,7 +91,8 @@ No original game installations, exports, or assets are downloaded by setup.
 
 ## Build and open
 
-UR-002 created the minimal project at `ue5/UnrealRemaster/UnrealRemaster.uproject`.
+The minimal project created in UR-002 is now named UnrealGoldRemake and lives at
+`ue5/UnrealGoldRemake/UnrealGoldRemake.uproject`.
 The following commands run from the repository root:
 
 ```sh
@@ -99,7 +100,7 @@ bash scripts/build-ue5.sh
 bash scripts/open-ue5.sh
 ```
 
-The first command validates the environment and builds UnrealRemasterEditor for
+The first command validates the environment and builds UnrealGoldRemakeEditor for
 Mac Development arm64. Its log is `.local/logs/ue5-build.log`. The second opens the
 built project in the installed editor. The initial map is the engine's empty Entry
 map. The project does not yet contain gameplay or converted content.

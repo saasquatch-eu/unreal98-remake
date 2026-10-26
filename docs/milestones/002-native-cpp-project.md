@@ -2,6 +2,10 @@
 
 ## Scope
 
+The project is now named **UnrealGoldRemake**. Commands below use the current
+name; the verification record retains the original UnrealRemaster names and
+paths used when UR-002 was executed.
+
 Create a UE5 C++ project that builds and opens on the primary Mac. The project
 contains one runtime module and Game/Editor target definitions. The module only
 logs its startup; no gameplay, conversion, importer, or original content is added.
@@ -24,8 +28,8 @@ The build script checks prerequisites and engine version before invoking:
 
 ```sh
 bash "$UE_ROOT/Engine/Build/BatchFiles/Mac/Build.sh" \
-  UnrealRemasterEditor Mac Development \
-  "-Project=$PWD/ue5/UnrealRemaster/UnrealRemaster.uproject" \
+  UnrealGoldRemakeEditor Mac Development \
+  "-Project=$PWD/ue5/UnrealGoldRemake/UnrealGoldRemake.uproject" \
   -architecture=arm64 -WaitMutex -NoHotReloadFromIDE
 ```
 
