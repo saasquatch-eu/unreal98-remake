@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=77,<85"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "unreal98-converter"
+version = "0.0.1"
+description = "Scaffold for future local UE1 content conversion tooling"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=9.1,<10"]
+
+[tool.setuptools.packages.find]
+where = ["tools/src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tools/tests"]
+addopts = "-ra --import-mode=importlib"

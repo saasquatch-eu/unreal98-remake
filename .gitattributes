@@ -1,0 +1,6 @@
+* text=auto eol=lf
+*.sh text eol=lf
+*.uasset binary
+*.umap binary
+*.png binary
+*.wav binary
