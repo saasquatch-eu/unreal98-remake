@@ -80,7 +80,7 @@ replace Xcode or the engine solely on the basis of this setup preflight.
 
 ## Git and later dependencies
 
-The project uses the existing private GitHub repository
+The project uses the existing GitHub repository
 `https://github.com/saasquatch-eu/unreal98-remake`. Use feature branches and pull
 requests for review. Public distribution and the code license remain separate
 decisions; no original Unreal assets are included.

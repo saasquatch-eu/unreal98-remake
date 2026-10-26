@@ -18,14 +18,17 @@ The castle intro is the first content target. Preserve each map's original name:
    on asset names. These imported assets remain ignored pending rights review.
 
 See `resource-naming.md` for concrete source-name mappings. The folders exist;
-conversion output and imported UE5 assets have not been generated.
+a private inspection report is now generated under `data/converted/Unreal/Maps/Unreal/`.
+Converted geometry and imported UE5 assets have not been generated.
 
 BSP conversion must eventually use evaluated geometry and handle subtractive
 volumes, UV alignment, coordinates, scaling, collision, materials, and transforms.
 Individual brush meshes must not be assumed to reconstruct the playable space.
 
 The T3D exports contain brush descriptions and actors, not proven evaluated room
-meshes. Structural block checks passed, but CSG evaluation, coordinate scaling,
-UVs, collision, and camera reconstruction remain unverified. Schemas, synthetic
-fixtures, and reusable pipeline commands will be introduced with the relevant
-parser/conversion work; the current experiments do not implement a converter.
+meshes. The source parser preserves ordered actors, raw properties, shared brush
+references, polygon vertices, and texture basis/pan data. Its inspection command
+has synthetic tests and a documented report contract. CSG evaluation, coordinate
+scaling, UV application, collision, and camera reconstruction remain unverified.
+See `milestones/005-unreal-intro-inspection.md` for observed source ambiguities
+that must be resolved before geometry conversion.
