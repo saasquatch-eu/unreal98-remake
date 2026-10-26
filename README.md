@@ -59,6 +59,11 @@ build. It opens the engine's empty Entry map; no remaster level is expected yet.
 The build script validates prerequisites, selects the pinned engine, and saves
 its log under ignored `.local/logs/`. `UE_ROOT` can override the engine location.
 
+The project's editor connection uses UE5's bundled Unreal MCP plugins. See
+[editor connection setup](docs/ue5-editor-connection.md) for local startup and
+verification. Its port is restricted to localhost; per-user auto-start settings
+remain under ignored `Saved/`.
+
 See [UR-002 results](docs/milestones/002-native-cpp-project.md) for executed checks
 and their limits. Development is tracked in the existing private
 [GitHub repository](https://github.com/saasquatch-eu/unreal98-remake).
