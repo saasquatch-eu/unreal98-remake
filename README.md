@@ -3,15 +3,15 @@
 A planned Unreal Engine 5 visual remaster that preserves the original gameplay,
 level geometry, atmosphere, and pacing. This is an independent personal project.
 
-**Status: castle geometry and 25 original texture images imported into UE5.**
-The private inspection map now uses original texture colors and normalized UVs,
-with readable fixed exposure. Saved-map checks cover all 7,251 triangle positions,
-winding, UVs, material assignments and disabled collision. Procedural fire/water
-are transparent placeholders; original atmosphere, collision and flyby playback
-remain unfinished. See the
-[original materials report](docs/milestones/009-original-materials.md),
-[UE5 import report](docs/milestones/008-ue5-intro-import.md) and
-[evaluated geometry report](docs/milestones/007-evaluated-geometry.md).
+**Status: castle geometry, original textures and a modern Lumen lighting pass are in UE5.**
+The private inspection map preserves all 7,251 source triangles and their UV/material
+assignments. It now uses software Lumen, Nanite world chunks, Virtual Shadow Maps,
+clouds, subtle fog and source-position lights. The reported shadow overflow is absent
+in the checked castle view. Procedural fire/water, original sky behavior, collision
+and flyby playback remain unfinished. See the
+[Lumen lighting report](docs/milestones/010-lumen-lighting.md),
+[original materials report](docs/milestones/009-original-materials.md) and
+[UE5 import report](docs/milestones/008-ue5-intro-import.md).
 
 ## Setup
 
@@ -91,7 +91,7 @@ output contains game-derived data and must remain in the ignored local folders.
 
 The prepared UE5 folders are under `ue5/UnrealGoldRemake/Content/Unreal/`. Future
 intro assets use original source names plus `_ue5`, including
-`Maps/Unreal_ue5.umap` and `Cinematics/Unreal_ue5.uasset`. The private inspection map and three mesh assets now exist locally; Cinematics
+`Maps/Unreal_ue5.umap` and `Cinematics/Unreal_ue5.uasset`. The private inspection map, three canonical meshes and 60 lighting render chunks exist locally; Cinematics
 assets remain future work. The editor still starts with Entry.
 
 See [resource naming](docs/resource-naming.md) and the
@@ -102,5 +102,6 @@ are local game-derived outputs; only the tooling and synthetic tests are in Git.
 The private UE5 recipe and buffers are under `ue5-import-ready/` beside that
 bundle. See the import report for commands, recovery notes and current limits.
 Original-color images and full UV/material buffers are under `materials-ready/`.
-Next are procedural effects, sky behavior and camera playback verification.
-Modern visual improvements follow the faithful baseline.
+The Lumen recipe and lossless render chunks are under `lighting-ready/`.
+Next are procedural effects, original sky behavior and camera playback verification.
+Modern lighting is a foundation for the later material and geometry art pass.

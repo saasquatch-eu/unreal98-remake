@@ -36,6 +36,15 @@
   fixes the washout. Procedural fire/water are explicitly transparent placeholders,
   with geometry and UVs preserved. Missing source assignments remain neutral.
   Original sky, effects, collision and flyby playback are still unresolved.
+  The modern lighting checkpoint (docs/milestones/010-lumen-lighting.md) replaces
+  inspection lighting with software Lumen, Nanite/VSM, clouds/fog and source-position
+  lights. Preserve the hidden canonical world reference and exact 7,135-triangle
+  union across 44 Nanite and 16 raster chunks, plus 116 Mover triangles. Keep
+  transparent effects separate and non-shadowing. Nanite fallback target must be
+  Percent Triangles at 100%, with exact Source Model and fallback count checks.
+  Manual exposure is now -6 EV; use the lighting verifier for the updated stage.
+  Point-light intensity/color calibration is artistic, not a UE1 lightmap match.
+  Hardware ray tracing and MegaLights are not enabled or validated.
 - Use numeric evidence only when both source and original-package hashes match
   recorded export provenance. Never globally relax the numeric parser or
   rewrite source exports. The binary reader is deliberately limited to v61,
