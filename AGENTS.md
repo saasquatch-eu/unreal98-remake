@@ -51,7 +51,12 @@
   verifier to validate visible overrides and all 64 GPU frames of each texture.
   The engine FlipBook function requires wrap addressing; padded atlases have no
   mipmaps. Flame motion is an independent preview, not a native UE1 simulation.
-  Liquids.liquid2's 278 water triangles remain deferred.
+  The water checkpoint (docs/milestones/012-source-water-preview.md) adds a lit
+  translucent source-image preview on Liquids.liquid2's 278 triangles through 13
+  explicit raster bindings. Its independent horizontal warp is not a native solver.
+  Use verify_intro_water.py for the combined stage; it supplies checked water
+  bindings to the flame verifier and checks all water/flame GPU frames. Source
+  mesh/UV/material data stays unchanged; saved water PreviewEmissive must be zero.
 - Use numeric evidence only when both source and original-package hashes match
   recorded export provenance. Never globally relax the numeric parser or
   rewrite source exports. The binary reader is deliberately limited to v61,
@@ -90,7 +95,10 @@
   localhost connection rather than adding a duplicate client configuration.
 - Before live edits, verify the connected project is UnrealGoldRemake and save
   affected work. Discover current tool schemas, serialize dependent mutations,
-  and verify returned results. Connection setup itself does not authorize asset
+  and verify returned results. When using a console field, identify it from a fresh
+  snapshot, confirm it is empty, and submit the full command in one Type call.
+  Never clear it with separate Select All/Backspace/Delete calls: focus can move
+  to the viewport and delete actors between calls. Connection setup itself does not authorize asset
   conversion or gameplay work.
 
 - Run `bash scripts/run-tests.sh` for Python changes, and `bash -n` on changed

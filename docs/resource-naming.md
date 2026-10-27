@@ -101,3 +101,10 @@ instances use `Materials/<package>/<group>/animated/`. For example,
 `Materials/NALIFX/SHANEFX/animated/TORCHES2_ue5`. The shared independently authored
 parent is `Materials/UE5/Unreal_FireFlipbook_ue5`. Deferred source materials remain
 as provenance references; explicit raster actor overrides select the previews.
+
+The source image for `Liquids.liquid2` retains its referenced package/group as
+`Textures/genfluid/Water/Water_ue5`. Its derived atlas is
+`Textures/Liquids/Flipbook/liquid2_ue5` and its preview instance is
+`Materials/Liquids/animated/liquid2_ue5`. The separate authored lit parent is
+`Materials/UE5/Unreal_WaterFlipbook_ue5`; the original deferred source slot stays
+unchanged in the mesh, with an explicit raster actor override selecting the preview.

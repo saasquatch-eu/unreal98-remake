@@ -137,3 +137,13 @@ creates private deterministic source-palette atlases and explicit slot bindings.
 draws every animation frame on the GPU to reject blank/static output. See
 [the flame checkpoint](../docs/milestones/011-source-flame-preview.md) for commands,
 recovery notes and the distinction between this preview and native UE1 simulation.
+
+## Animated water preview
+
+`python -m ue1_converter.water_prepare` reads bounded v61 WetTexture records and
+the referenced P8 image, then creates a private periodic horizontal-warp atlas
+with repeat-safe padding and exact slot bindings. `apply_intro_water.py` creates
+a lit translucent preview with a map recovery copy. `verify_intro_water.py`
+checks the complete saved water/flame scene and every GPU animation frame. See
+[the water checkpoint](../docs/milestones/012-source-water-preview.md) for commands
+and limitations; this is not the native water solver or a gameplay-water volume.

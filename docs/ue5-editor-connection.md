@@ -89,3 +89,14 @@ After the rename, a retained client session initially produced an unknown-sessio
 message; the native client reinitialized successfully. Subsequent native queries
 returned `projectName: UnrealGoldRemake`, Entry, and Play mode off. No extra client configuration, proxy, asset
 generation service, or external software was installed.
+
+## Console automation focus guard
+
+Prefer direct editor APIs. When a Python console command is necessary, identify
+its field in a fresh Slate snapshot, confirm it is empty, then submit the complete
+command in one `Type` call with submission enabled. Never clear the field with
+separate global Select All/Backspace/Delete calls. Focus can move to the viewport
+between calls; a Backspace deleted a derived effect actor during the water pass.
+Preflight caught it and the exact checked render actor was restored. If the
+identified console contains text, inspect that state rather than sending a
+clearing shortcut. Check the execution report/log before issuing dependent work.
