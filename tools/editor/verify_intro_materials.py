@@ -19,7 +19,7 @@ def record(points,uvs,material_id):
     return material_id,min(corners,corners[1:]+corners[:1],corners[2:]+corners[:2])
 
 
-def verify(plan_path,report_path):
+def verify(plan_path,report_path,*,check_inspection_exposure=True,exposure_actor_label='Unreal_InspectionExposure_ue5'):
     plan_path=Path(plan_path);plan=json.loads(plan_path.read_text());folder=plan_path.parent
     if Path(unreal.Paths.get_project_file_path()).stem!='UnrealGoldRemake':raise RuntimeError('wrong project')
     # Existing verifier switches away, reloads, and checks every position/winding/actor.
@@ -39,7 +39,7 @@ def verify(plan_path,report_path):
         material=unreal.load_asset(entry['path'])
         value=unreal.MaterialEditingLibrary.get_material_instance_texture_parameter_value(material,'OriginalColor')
         expected=next(t['asset_path'] for t in plan['textures'] if t['path']==entry['texture'])
-        if not value or value.get_path_name().split('.')[0]!=expected:raise RuntimeError('saved material texture differs')
+        if not value or value!=unreal.load_asset(expected):raise RuntimeError('saved material texture differs')
     actors=unreal.get_editor_subsystem(unreal.EditorActorSubsystem).get_all_level_actors()
     for entry in plan['meshes']:
         data=json.loads((folder/entry['source_file']).read_text());expected=Counter()
@@ -59,14 +59,14 @@ def verify(plan_path,report_path):
         if actual!=expected:raise RuntimeError('saved UVs or material IDs differ for '+entry['name'])
         paths=[str(s.material_interface.get_path_name()).split('.')[0] for s in asset.static_materials]
         expected_paths=[plan['materials'][i]['path'] for i in entry['materials']]
-        if paths!=expected_paths:raise RuntimeError('saved material slots differ')
+        if [s.material_interface for s in asset.static_materials]!=[unreal.load_asset(p) for p in expected_paths]:raise RuntimeError('saved material slots differ')
         actor=next(a for a in actors if a.get_actor_label()==entry['name'])
         overrides=actor.static_mesh_component.get_editor_property('override_materials')
         if any(overrides):raise RuntimeError('actor overrides hide original material slots')
         report['meshes'].append(dict(name=entry['name'],triangle_count=mesh.get_triangle_count(),uvs_and_material_ids_match=True,material_slots=len(paths)))
-    exposure=next(a for a in actors if a.get_actor_label()=='Unreal_InspectionExposure_ue5').get_editor_property('settings')
-    if exposure.get_editor_property('auto_exposure_method')!=unreal.AutoExposureMethod.AEM_MANUAL or exposure.get_editor_property('auto_exposure_bias')!=-13:raise RuntimeError('fixed exposure did not persist')
-    report['exposure']=dict(method='manual',bias=-13)
+    exposure=next(a for a in actors if a.get_actor_label()==exposure_actor_label).get_editor_property('settings')
+    if check_inspection_exposure and (exposure.get_editor_property('auto_exposure_method')!=unreal.AutoExposureMethod.AEM_MANUAL or exposure.get_editor_property('auto_exposure_bias')!=-13):raise RuntimeError('fixed exposure did not persist')
+    report['exposure']=dict(method=str(exposure.get_editor_property('auto_exposure_method')),bias=exposure.get_editor_property('auto_exposure_bias'))
     Path(report_path).write_text(json.dumps(report,indent=2)+'\n')
     unreal.log('UR_MATERIAL_VERIFY_SUCCESS')
     return report

@@ -65,7 +65,7 @@ def create_resources(plan,folder):
         assets.import_asset_tasks([task])
         if len(task.imported_object_paths)!=1:raise RuntimeError('texture import did not produce one asset')
         texture=unreal.load_asset(task.imported_object_paths[0])
-        if not isinstance(texture,unreal.Texture2D) or texture.get_path_name()!=destination+'.'+name:raise RuntimeError('unexpected imported texture path')
+        if not isinstance(texture,unreal.Texture2D) or texture!=unreal.load_asset(destination):raise RuntimeError('unexpected imported texture path')
         texture.set_editor_property('srgb',True)
         texture.set_editor_property('address_x',unreal.TextureAddress.TA_WRAP);texture.set_editor_property('address_y',unreal.TextureAddress.TA_WRAP)
         if not unreal.EditorAssetLibrary.save_loaded_asset(texture):raise RuntimeError('texture save failed')

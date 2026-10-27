@@ -88,3 +88,9 @@ Material variants preserve package/group directories and add a mode folder befor
 the original stem, for example `Materials/NaliCast/Wall/opaque/wmcs_ue5.uasset`.
 Generic shared parents use `Materials/UE5/Original_<mode>_ue5.uasset`. Procedural
 placeholders use the `deferred` mode and retain their original source names.
+
+Lumen render chunks are derived map resources under `Meshes/Lumen/`, named
+`Unreal_ChunkNNN_ue5` for opaque/masked surfaces and `Unreal_EffectsNNN_ue5` for
+transparent surfaces. The private recipe records source triangle indices and
+original material references. The localized cloud instance is
+`Materials/UE5/Unreal_Clouds_ue5`; the canonical world/Mover meshes keep their names.

@@ -117,3 +117,13 @@ python tools/preview/render_geometry.py <Map>.geometry.json \
 The preview uses a fixed 75-degree diagnostic field of view, not a verified
 original camera FOV. An offline preview is not an Unreal Editor screenshot. Original textures,
 lighting, transparency, sky behavior, collision, and playback are not established.
+
+## Modern intro lighting
+
+`python -m ue1_converter.lighting_prepare` prepares lossless spatial render chunks
+and a source-position light inventory from the checked material bundle and map.
+Use `tools/editor/apply_lumen_lighting.py` only on the saved material baseline;
+`verify_lumen_lighting.py` checks the resulting saved map, source geometry, UVs,
+materials, Nanite fallbacks and renderer/light settings. See
+[the lighting checkpoint](../docs/milestones/010-lumen-lighting.md) for commands,
+backups, Mac rendering choices and unfinished source effects.
