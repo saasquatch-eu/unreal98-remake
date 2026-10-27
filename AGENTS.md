@@ -24,6 +24,14 @@
   brush transforms to them again. Preserve raw surface/node flags, texture
   paths, source boundaries, sky roles, and separate Movers. An OBJ or offline
   preview does not establish UE5 import, normalized UVs, collision, or playback.
+- The private UE5 import checkpoint is documented in
+  docs/milestones/008-ue5-intro-import.md. Direct Geometry Script buffers preserve
+  identity axes and reverse source triangle winding for UE5. Mandatory diagnostic
+  UV0 prevents StaticMesh lightmap assertions; it is not original texture UVs.
+  Preserve exact triangle counts and validate saved triangle positions/winding,
+  actor transforms and the NoCollision profile after reload. Never silently
+  overwrite existing assets or loosen count checks. The lit preview remains
+  overexposed; materials, sky, collision and flyby playback are still unresolved.
 - Use numeric evidence only when both source and original-package hashes match
   recorded export provenance. Never globally relax the numeric parser or
   rewrite source exports. The binary reader is deliberately limited to v61,

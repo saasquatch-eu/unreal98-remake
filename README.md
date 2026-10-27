@@ -3,17 +3,15 @@
 A planned Unreal Engine 5 visual remaster that preserves the original gameplay,
 level geometry, atmosphere, and pacing. This is an independent personal project.
 
-**Status: original castle BSP extracted; untextured geometry previews available.**
-UnrealGoldRemake builds for Mac arm64 and opens in Unreal Editor. The Python
-tooling now parses the original castle export and reports source geometry,
-resource references, and camera ambiguities. Binary-backed pivot evidence and
-brush-transform checks are available. Extraction now follows the original map
-to its compiled BSP and produces classified geometry plus a private OBJ. UE5
-import, materials, collision, and flyby playback remain future work. See the
-[evaluated geometry report](docs/milestones/007-evaluated-geometry.md),
-[coordinate validation report](docs/milestones/006-brush-validation.md),
-[inspection report](docs/milestones/005-unreal-intro-inspection.md), and
-[connection and rename report](docs/milestones/004-editor-connection-project-rename.md).
+**Status: castle geometry imported into a private UE5 inspection map.**
+UnrealGoldRemake has its native Mac arm64 foundation. The local tooling extracts
+original evaluated BSP, preserves provenance and prepares UE5 mesh buffers.
+The first import contains all 7,251 triangles across the world and two separate
+Movers. Saved-map checks cover geometry, placement and disabled collision.
+The lit preview is still overexposed; original materials, sky behavior, collision
+and flyby playback remain future work. See the
+[UE5 import report](docs/milestones/008-ue5-intro-import.md) and
+[evaluated geometry report](docs/milestones/007-evaluated-geometry.md).
 
 ## Setup
 
@@ -41,6 +39,7 @@ results and outstanding work.
 | `docs/` | Setup, architecture boundaries, fidelity, and milestone notes |
 | `tools/src/ue1_converter/` | Source inspection, binary evidence, compiled BSP extraction, and validation |
 | `tools/tests/` | Synthetic parsing/inspection and CLI safety tests, installation smoke test |
+| `tools/editor/` | Create-only UE5 importer and saved-map readback checks |
 | `tools/{extract,convert,validate}/` | Reserved tooling directories |
 | `schemas/` | Future intermediate representation contracts |
 | `data/{fixtures,manifests}/` | Future synthetic fixtures and manifests |
@@ -61,7 +60,8 @@ bash scripts/open-ue5.sh
 ```
 
 You can also open `ue5/UnrealGoldRemake/UnrealGoldRemake.uproject` after the first
-build. It opens the engine's empty Entry map; no remaster level is expected yet.
+build. It opens the engine's empty Entry map. The generated private castle map can be
+opened separately; it is not included in a fresh clone.
 The build script validates prerequisites, selects the pinned engine, and saves
 its log under ignored `.local/logs/`. `UE_ROOT` can override the engine location.
 
@@ -91,13 +91,15 @@ output contains game-derived data and must remain in the ignored local folders.
 
 The prepared UE5 folders are under `ue5/UnrealGoldRemake/Content/Unreal/`. Future
 intro assets use original source names plus `_ue5`, including
-`Maps/Unreal_ue5.umap` and `Cinematics/Unreal_ue5.uasset`. These assets do not exist
-yet; the editor still opens Entry.
+`Maps/Unreal_ue5.umap` and `Cinematics/Unreal_ue5.uasset`. The private inspection map and three mesh assets now exist locally; Cinematics
+assets remain future work. The editor still starts with Entry.
 
 See [resource naming](docs/resource-naming.md) and the
 [intro preparation report](docs/milestones/003-unreal-intro-preparation.md).
 The evaluated extraction is under ignored `data/converted/Unreal/Maps/Unreal/geometry-final/`,
 including `Unreal.geometry.json`, `Unreal_ue5.obj`, and diagnostic PNGs. These
 are local game-derived outputs; only the tooling and synthetic tests are in Git.
-Next is UE5 import with explicit scale/orientation and UV/material handling,
-followed by collision, sky behavior, and camera playback verification.
+The private UE5 recipe and buffers are under `ue5-import-ready/` beside that
+bundle. See the import report for commands, recovery notes and current limits.
+Next are exposure and original UV/material reconstruction, followed by collision,
+sky behavior, and camera playback verification.
