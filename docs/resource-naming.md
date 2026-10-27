@@ -94,3 +94,10 @@ Lumen render chunks are derived map resources under `Meshes/Lumen/`, named
 transparent surfaces. The private recipe records source triangle indices and
 original material references. The localized cloud instance is
 `Materials/UE5/Unreal_Clouds_ue5`; the canonical world/Mover meshes keep their names.
+
+Animated flame atlases retain original stems under `Textures/<package>/<group>/Flipbook/`;
+instances use `Materials/<package>/<group>/animated/`. For example,
+`Textures/NALIFX/SHANEFX/Flipbook/TORCHES2_ue5` and
+`Materials/NALIFX/SHANEFX/animated/TORCHES2_ue5`. The shared independently authored
+parent is `Materials/UE5/Unreal_FireFlipbook_ue5`. Deferred source materials remain
+as provenance references; explicit raster actor overrides select the previews.

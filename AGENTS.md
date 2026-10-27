@@ -45,6 +45,13 @@
   Manual exposure is now -6 EV; use the lighting verifier for the updated stage.
   Point-light intensity/color calibration is artistic, not a UE1 lightmap match.
   Hardware ray tracing and MegaLights are not enabled or validated.
+  The flame checkpoint (docs/milestones/011-source-flame-preview.md) adds two
+  source-palette animated previews through five raster-actor material overrides
+  covering 128 triangles. Mesh/source material data stays unchanged. Run the flame
+  verifier to validate visible overrides and all 64 GPU frames of each texture.
+  The engine FlipBook function requires wrap addressing; padded atlases have no
+  mipmaps. Flame motion is an independent preview, not a native UE1 simulation.
+  Liquids.liquid2's 278 water triangles remain deferred.
 - Use numeric evidence only when both source and original-package hashes match
   recorded export provenance. Never globally relax the numeric parser or
   rewrite source exports. The binary reader is deliberately limited to v61,
