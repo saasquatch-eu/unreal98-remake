@@ -30,12 +30,18 @@
   UV0 prevents StaticMesh lightmap assertions; it is not original texture UVs.
   Preserve exact triangle counts and validate saved triangle positions/winding,
   actor transforms and the NoCollision profile after reload. Never silently
-  overwrite existing assets or loosen count checks. The lit preview remains
-  overexposed; materials, sky, collision and flyby playback are still unresolved.
+  overwrite existing assets or loosen count checks. The following material checkpoint
+  (docs/milestones/009-original-materials.md) adds 25 original P8 images, normalized
+  UV0 and material IDs with full saved readback. Manual -13 EV inspection exposure
+  fixes the washout. Procedural fire/water are explicitly transparent placeholders,
+  with geometry and UVs preserved. Missing source assignments remain neutral.
+  Original sky, effects, collision and flyby playback are still unresolved.
 - Use numeric evidence only when both source and original-package hashes match
   recorded export provenance. Never globally relax the numeric parser or
   rewrite source exports. The binary reader is deliberately limited to v61,
   licensee zero, flags zero, and selected objects without state frames/arrays.
+  Texture tooling alone opts into the AllowDownload package flag and small
+  static property-array indices. Keep the map reader strict by default.
 - Preserve Unreal (1998) gameplay and geometry; modernize visuals incrementally.
 - Work in small issues with explicit acceptance criteria. Inspect existing files
   before editing. Do not generate an entire game or introduce speculative systems.

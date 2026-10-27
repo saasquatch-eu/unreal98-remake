@@ -42,7 +42,7 @@ data/converted/Unreal/                # private, ignored; reports and geometry b
   Sounds/
   Music/
 
-ue5/UnrealGoldRemake/Content/Unreal/     # only directory placeholders exist
+ue5/UnrealGoldRemake/Content/Unreal/     # generated assets remain private and ignored
   Maps/
   Meshes/
   Textures/
@@ -61,7 +61,8 @@ The command/log preserve the actual experiment paths and original exporter name.
 
 ## Planned UE5 assets
 
-These examples define naming only; no `.umap` or `.uasset` files exist yet.
+These examples define naming. The castle inspection map, meshes and original
+texture baseline now exist locally; other resource types remain future work.
 
 | Source | Planned UE5 path below Content/Unreal |
 | --- | --- |
@@ -82,3 +83,8 @@ Game-derived raw, converted, and imported content remains private. Git ignores
 the working-data roots and Content/Unreal asset files; only its `.gitkeep`
 directory placeholders are versioned. No synthetic fixtures or independently
 authored source code are hidden by that content-specific rule.
+
+Material variants preserve package/group directories and add a mode folder before
+the original stem, for example `Materials/NaliCast/Wall/opaque/wmcs_ue5.uasset`.
+Generic shared parents use `Materials/UE5/Original_<mode>_ue5.uasset`. Procedural
+placeholders use the `deferred` mode and retain their original source names.
