@@ -31,4 +31,8 @@ references, polygon vertices, and texture basis/pan data. Its inspection command
 has synthetic tests and a documented report contract. CSG evaluation, coordinate
 scaling, UV application, collision, and camera reconstruction remain unverified.
 See `milestones/005-unreal-intro-inspection.md` for observed source ambiguities
-that must be resolved before geometry conversion.
+that were identified before geometry conversion. The subsequent coordinate
+audit (`milestones/006-brush-validation.md`) binds four malformed pivot
+components to original binary values without rewriting the export. It audits
+186 brush transforms; full BSP evaluation, solidity flags, sky handling,
+and original-runtime comparison are still outstanding.

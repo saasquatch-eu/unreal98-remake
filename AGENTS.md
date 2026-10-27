@@ -14,7 +14,14 @@
   and a private intro report. It does not evaluate CSG, apply class defaults,
   import assets, or implement gameplay. Empty content directories are not
   working UE5 assets. Follow docs/milestones/005-unreal-intro-inspection.md
-  for the remaining geometry and camera questions.
+  for the initial geometry and camera questions. The next source-coordinate
+  checkpoint is documented in docs/milestones/006-brush-validation.md: binary
+  evidence resolves four pivot components, and zero-shear transforms plus an
+  axis-aligned synthetic CSG reference are tested. No castle BSP is evaluated.
+- Use numeric evidence only when both source and original-package hashes match
+  recorded export provenance. Never globally relax the numeric parser or
+  rewrite source exports. The binary reader is deliberately limited to v61,
+  licensee zero, flags zero, and selected objects without state frames/arrays.
 - Preserve Unreal (1998) gameplay and geometry; modernize visuals incrementally.
 - Work in small issues with explicit acceptance criteria. Inspect existing files
   before editing. Do not generate an entire game or introduce speculative systems.
@@ -27,8 +34,12 @@
 - Python tooling requires Python 3.12+ in a repository-local `.venv`.
 - Use `PYTHON_BIN`, `DEVELOPER_DIR`, and `UE_ROOT` overrides rather than hardcoding
   a developer's paths in implementation files.
-- Ask before installing/updating system software or changing system configuration.
-  Project-local dependencies belong in `.venv`.
+- The user handles application installation, updates, and removal manually.
+  Do not request macOS app-management permission or modify application bundles.
+  The UCC compiler probe was stopped after that permission prompt; this
+  validation workflow uses read-only package analysis and Python tests.
+  Project-local dependencies belong in `.venv`. Inform the user immediately
+  if another tool becomes necessary.
 - The user wants to know which tools are used. Work with the existing Python,
   bundled Unreal UCC, Git/GitHub, and UE5 tooling; inform the user before using an
   additional program. No extra software is needed for folder preparation.
