@@ -73,15 +73,17 @@ class VectorEvidence:
 
 
 class Package61:
-    def __init__(self, data: bytes):
+    """Strict v61 tables; texture readers may opt into the AllowDownload flag only."""
+    def __init__(self, data: bytes, *, allow_download_flag: bool = False):
         self.data = data
         reader = Reader(data)
         signature, version, licensee, flags, nc, no, ec, eo, ic, io = reader.unpack("IHHIiiiiii")
-        if (signature, version, licensee, flags) != (0x9E2A83C1, 61, 0, 0):
+        if (signature, version, licensee) != (0x9E2A83C1, 61, 0) or flags not in ((0, 1) if allow_download_flag else (0,)):
             raise PackageError("only uncompressed, licensee-zero package version 61 is supported")
         for count, offset, minimum in ((nc, no, 5), (ec, eo, 12), (ic, io, 7)):
             if count < 0 or offset < 36 or offset > len(data) or count > (len(data) - offset) // minimum:
                 raise PackageError("invalid table count or offset")
+        self.flags = flags
         self.names = []
         reader = Reader(data, no)
         for _ in range(nc):

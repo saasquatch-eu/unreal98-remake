@@ -3,13 +3,13 @@
 A planned Unreal Engine 5 visual remaster that preserves the original gameplay,
 level geometry, atmosphere, and pacing. This is an independent personal project.
 
-**Status: castle geometry imported into a private UE5 inspection map.**
-UnrealGoldRemake has its native Mac arm64 foundation. The local tooling extracts
-original evaluated BSP, preserves provenance and prepares UE5 mesh buffers.
-The first import contains all 7,251 triangles across the world and two separate
-Movers. Saved-map checks cover geometry, placement and disabled collision.
-The lit preview is still overexposed; original materials, sky behavior, collision
-and flyby playback remain future work. See the
+**Status: castle geometry and 25 original texture images imported into UE5.**
+The private inspection map now uses original texture colors and normalized UVs,
+with readable fixed exposure. Saved-map checks cover all 7,251 triangle positions,
+winding, UVs, material assignments and disabled collision. Procedural fire/water
+are transparent placeholders; original atmosphere, collision and flyby playback
+remain unfinished. See the
+[original materials report](docs/milestones/009-original-materials.md),
 [UE5 import report](docs/milestones/008-ue5-intro-import.md) and
 [evaluated geometry report](docs/milestones/007-evaluated-geometry.md).
 
@@ -101,5 +101,6 @@ including `Unreal.geometry.json`, `Unreal_ue5.obj`, and diagnostic PNGs. These
 are local game-derived outputs; only the tooling and synthetic tests are in Git.
 The private UE5 recipe and buffers are under `ue5-import-ready/` beside that
 bundle. See the import report for commands, recovery notes and current limits.
-Next are exposure and original UV/material reconstruction, followed by collision,
-sky behavior, and camera playback verification.
+Original-color images and full UV/material buffers are under `materials-ready/`.
+Next are procedural effects, sky behavior and camera playback verification.
+Modern visual improvements follow the faithful baseline.

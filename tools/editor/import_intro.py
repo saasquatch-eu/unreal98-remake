@@ -13,6 +13,8 @@ import unreal
 
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'src'))
 from ue1_converter.ue5_prepare import validate_buffers
+sys.path.insert(0,str(Path(__file__).resolve().parent))
+from inspection_lighting import fixed_inspection_exposure
 
 
 def build_asset(data,path,expected_count):
@@ -66,14 +68,8 @@ def add_inspection_lighting():
     unreal.log('UR_SKY_BASELINE '+str(c.get_editor_property('intensity')))
     c.set_mobility(unreal.ComponentMobility.MOVABLE);c.set_editor_property('real_time_capture',True);c.set_intensity(1)
     p=actors.spawn_actor_from_class(unreal.PostProcessVolume,unreal.Vector());p.set_actor_label('Unreal_InspectionExposure_ue5')
-    settings=p.get_editor_property('settings')
-    unreal.log('UR_EXPOSURE_BASELINE '+str({k:settings.get_editor_property(k) for k in ('auto_exposure_min_brightness','auto_exposure_max_brightness','override_auto_exposure_min_brightness','override_auto_exposure_max_brightness','auto_exposure_bias')}))
     p.set_editor_property('unbound',True)
-    settings.set_editor_property('override_auto_exposure_min_brightness',True);settings.set_editor_property('override_auto_exposure_max_brightness',True)
-    extended=unreal.SystemLibrary.get_console_variable_int_value('r.DefaultFeature.AutoExposure.ExtendDefaultLuminanceRange')!=0
-    settings.set_editor_property('auto_exposure_min_brightness',10 if extended else 2**10)
-    settings.set_editor_property('auto_exposure_max_brightness',16 if extended else 2**16)
-    p.set_editor_property('settings',settings)
+    fixed_inspection_exposure(p)
 
 
 def run(recipe_path,report_path):
