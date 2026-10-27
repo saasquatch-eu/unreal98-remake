@@ -127,3 +127,13 @@ Use `tools/editor/apply_lumen_lighting.py` only on the saved material baseline;
 materials, Nanite fallbacks and renderer/light settings. See
 [the lighting checkpoint](../docs/milestones/010-lumen-lighting.md) for commands,
 backups, Mac rendering choices and unfinished source effects.
+
+## Animated flame preview
+
+`python -m ue1_converter.fire_prepare` reads the bounded v61 fire records and
+creates private deterministic source-palette atlases and explicit slot bindings.
+`tools/editor/apply_intro_fire.py` admits these through raster actor overrides;
+`verify_intro_fire.py` reloads the saved scene, checks geometry and bindings, and
+draws every animation frame on the GPU to reject blank/static output. See
+[the flame checkpoint](../docs/milestones/011-source-flame-preview.md) for commands,
+recovery notes and the distinction between this preview and native UE1 simulation.

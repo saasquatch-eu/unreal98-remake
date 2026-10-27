@@ -3,12 +3,14 @@
 A planned Unreal Engine 5 visual remaster that preserves the original gameplay,
 level geometry, atmosphere, and pacing. This is an independent personal project.
 
-**Status: castle geometry, original textures and a modern Lumen lighting pass are in UE5.**
+**Status: castle geometry, original textures, Lumen lighting and animated flame previews are in UE5.**
 The private inspection map preserves all 7,251 source triangles and their UV/material
 assignments. It now uses software Lumen, Nanite world chunks, Virtual Shadow Maps,
 clouds, subtle fog and source-position lights. The reported shadow overflow is absent
-in the checked castle view. Procedural fire/water, original sky behavior, collision
-and flyby playback remain unfinished. See the
+in the checked castle view. Both original flame references now have animated
+source-palette previews on their 128 triangles. Water, original sky behavior,
+collision and flyby playback remain unfinished. See the
+[flame preview report](docs/milestones/011-source-flame-preview.md),
 [Lumen lighting report](docs/milestones/010-lumen-lighting.md),
 [original materials report](docs/milestones/009-original-materials.md) and
 [UE5 import report](docs/milestones/008-ue5-intro-import.md).
@@ -103,5 +105,6 @@ The private UE5 recipe and buffers are under `ue5-import-ready/` beside that
 bundle. See the import report for commands, recovery notes and current limits.
 Original-color images and full UV/material buffers are under `materials-ready/`.
 The Lumen recipe and lossless render chunks are under `lighting-ready/`.
-Next are procedural effects, original sky behavior and camera playback verification.
+The flame recipe and atlases are under `fire-ready/`. Next are the water effect,
+original sky behavior and camera playback verification.
 Modern lighting is a foundation for the later material and geometry art pass.
