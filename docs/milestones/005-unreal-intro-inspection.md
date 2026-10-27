@@ -69,7 +69,14 @@ raw values. Timing, looping, FOV, and class-default behavior are not reconstruct
 
 This change requires no C++ build: no C++ or engine configuration was changed.
 
-## Next geometry checkpoint
+## Subsequent coordinate validation
+
+The next bounded checkpoint is complete; see `006-brush-validation.md`. It
+resolves the four malformed pivot components with binary evidence and tests
+source transforms plus synthetic box operations. Full castle BSP evaluation
+and camera behavior remain unresolved.
+
+## Geometry questions recorded at this checkpoint
 
 1. Establish how the original runtime reads the malformed export values, or obtain
    verified values directly from the binary map with the existing tooling.
