@@ -71,5 +71,49 @@ into model coordinates. Python double precision is not bit-exact native UE1 math
 `solid_reference` is a bounded, axis-aligned occupancy/volume oracle for authored
 synthetic examples. Its explicit initial-solid setting and ordered operations
 test subtraction, restoration, overlap, and idempotence. It does not consume map
-brushes, implement BSP flags/tolerances, or produce mesh boundaries. Full castle
-CSG evaluation and UE5 mesh generation are still unimplemented.
+brushes, implement BSP flags/tolerances, or produce mesh boundaries. A replacement
+brush-order CSG evaluator and UE5 asset creation remain unimplemented; the next
+section describes extraction of already evaluated original geometry.
+
+## Original evaluated BSP extraction
+
+```sh
+.venv/bin/python -m ue1_converter extract-bsp \
+  data/local/Unreal/Maps/Unreal/Unreal.t3d \
+  --package "$HOME/Library/Application Support/Unreal/Maps/Unreal.unr" \
+  --output-dir data/converted/Unreal/Maps/Unreal/geometry
+```
+
+The destination directory must not exist; choose a new name for a repeat run.
+This command uses the same map/export provenance sidecars as `validate-brushes`.
+It writes the classified `<Map>.geometry.json` and untextured `<Map>_ue5.obj`.
+No export, original map, existing directory, app, or UE5 project asset is replaced.
+Detailed outputs remain in ignored local storage.
+
+`native_bsp` follows the Level's serialized model reference, then validates the
+v61 geometry-table counts, object types, vertex spans, references, graph cycles,
+zones, and exact consumed sizes. Unused legacy vertex-pool slots can contain
+stale indices: these are counted, while every referenced point is bounds-checked.
+Lighting, hulls, gameplay, other package versions, and native runtime behavior
+are not reconstructed. The brush sequence is not evaluated by a new CSG engine.
+
+Triangulation preserves ordinary collinear boundary corners and checks projected
+area. Duplicate projected corners and zero-width collinear reversals can be
+omitted from triangles; original boundaries and omitted corner indices remain
+in the JSON. Unsafe boundaries fail explicitly. Surface UVs remain in texels,
+without guessed texture dimensions. The diagnostic OBJ contains no normalized UVs.
+
+Optional `tools/preview/render_geometry.py` uses Pillow and NumPy to render a CPU
+clay preview. These libraries already exist in the workstation's bundled Python;
+they were not installed into `.venv` and are not required by the extraction CLI.
+Use an interpreter where they are available; the script never installs anything:
+
+```sh
+python tools/preview/render_geometry.py <Map>.geometry.json --output overview.png
+python tools/preview/render_geometry.py <Map>.geometry.json \
+  --sample InterpolationPoint0 --output camera0.png
+```
+
+The preview uses a fixed 75-degree diagnostic field of view, not a verified
+original camera FOV. An offline preview is not an Unreal Editor screenshot. Original textures,
+lighting, transparency, sky behavior, collision, and playback are not established.

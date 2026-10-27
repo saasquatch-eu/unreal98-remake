@@ -3,12 +3,14 @@
 A planned Unreal Engine 5 visual remaster that preserves the original gameplay,
 level geometry, atmosphere, and pacing. This is an independent personal project.
 
-**Status: castle source inspection and coordinate validation complete.**
+**Status: original castle BSP extracted; untextured geometry previews available.**
 UnrealGoldRemake builds for Mac arm64 and opens in Unreal Editor. The Python
 tooling now parses the original castle export and reports source geometry,
 resource references, and camera ambiguities. Binary-backed pivot evidence and
-brush-transform checks are now available. Full castle CSG evaluation, imported
-UE5 content, and gameplay remain future work. See the
+brush-transform checks are available. Extraction now follows the original map
+to its compiled BSP and produces classified geometry plus a private OBJ. UE5
+import, materials, collision, and flyby playback remain future work. See the
+[evaluated geometry report](docs/milestones/007-evaluated-geometry.md),
 [coordinate validation report](docs/milestones/006-brush-validation.md),
 [inspection report](docs/milestones/005-unreal-intro-inspection.md), and
 [connection and rename report](docs/milestones/004-editor-connection-project-rename.md).
@@ -37,13 +39,13 @@ results and outstanding work.
 | Path | Purpose |
 | --- | --- |
 | `docs/` | Setup, architecture boundaries, fidelity, and milestone notes |
-| `tools/src/ue1_converter/` | Source inspection, bounded binary evidence, brush math, synthetic CSG reference |
+| `tools/src/ue1_converter/` | Source inspection, binary evidence, compiled BSP extraction, and validation |
 | `tools/tests/` | Synthetic parsing/inspection and CLI safety tests, installation smoke test |
 | `tools/{extract,convert,validate}/` | Reserved tooling directories |
 | `schemas/` | Future intermediate representation contracts |
 | `data/{fixtures,manifests}/` | Future synthetic fixtures and manifests |
 | `data/local/Unreal/` | Private exports with original map/resource names; ignored |
-| `data/converted/Unreal/` | Private inspection output and future intermediate content; ignored |
+| `data/converted/Unreal/` | Private reports, geometry bundles, and previews; ignored |
 | `reference/` | Reference handling policy; local files remain ignored |
 | `ue5/UnrealGoldRemake/` | Minimal C++ project, source targets, and configuration |
 | `scripts/` | Local setup, validation, and test commands |
@@ -94,5 +96,8 @@ yet; the editor still opens Entry.
 
 See [resource naming](docs/resource-naming.md) and the
 [intro preparation report](docs/milestones/003-unreal-intro-preparation.md).
-Next comes evaluating the castle BSP, including brush solidity flags and sky
-portals, before importing geometry or reconstructing camera playback.
+The evaluated extraction is under ignored `data/converted/Unreal/Maps/Unreal/geometry-final/`,
+including `Unreal.geometry.json`, `Unreal_ue5.obj`, and diagnostic PNGs. These
+are local game-derived outputs; only the tooling and synthetic tests are in Git.
+Next is UE5 import with explicit scale/orientation and UV/material handling,
+followed by collision, sky behavior, and camera playback verification.

@@ -34,7 +34,7 @@ data/local/Unreal/                    # private, ignored
   Music/
   System/
 
-data/converted/Unreal/                # private, ignored; currently empty
+data/converted/Unreal/                # private, ignored; reports and geometry bundles
   Maps/Unreal/
   Maps/Vortex2/
   Meshes/

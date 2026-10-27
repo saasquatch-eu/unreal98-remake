@@ -7,6 +7,7 @@ import sys
 
 from .brush_audit import audit_brushes
 from .inspection import inspect_document
+from .geometry import extract_geometry,write_bundle
 from .t3d import parse_t3d
 
 
@@ -16,17 +17,22 @@ def main(argv: list[str] | None = None) -> int:
     inspect = commands.add_parser("inspect-t3d", help="inventory a UE1 map export and flag ambiguities")
     inspect.add_argument("--encoding", default="utf-8", help="explicit source text codec (default: utf-8)")
     validate = commands.add_parser("validate-brushes", help="bind binary numeric evidence and audit source brush transforms")
-    validate.add_argument("--package", type=Path, required=True, help="original binary map, read only")
-    validate.add_argument("--baseline", type=Path, help="original-map hash sidecar; defaults beside source")
-    validate.add_argument("--export-summary", type=Path, help="export hash sidecar; defaults beside source")
-    for command in (inspect, validate):
+    extract = commands.add_parser("extract-bsp", help="extract the original compiled BSP into a private geometry bundle")
+    extract.add_argument("--output-dir",type=Path,required=True,help="new destination directory; existing paths are refused")
+    extract.set_defaults(output=None,force=False)
+    for command in (validate,extract):
+        command.add_argument("--package", type=Path, required=True, help="original binary map, read only")
+        command.add_argument("--baseline", type=Path, help="original-map hash sidecar; defaults beside source")
+        command.add_argument("--export-summary", type=Path, help="export hash sidecar; defaults beside source")
+    for command in (inspect, validate, extract):
         command.add_argument("source", type=Path)
-        command.add_argument("--output", "-o", type=Path, help="write private JSON; otherwise print JSON")
-        command.add_argument("--force", action="store_true", help="replace an existing report")
+        if command is not extract:
+            command.add_argument("--output", "-o", type=Path, help="write private JSON; otherwise print JSON")
+            command.add_argument("--force", action="store_true", help="replace an existing report")
     args = parser.parse_args(argv)
     try:
         protected = [args.source]
-        if args.command == "validate-brushes":
+        if args.command != "inspect-t3d":
             args.baseline = args.baseline or args.source.with_suffix(".source-baseline.json")
             args.export_summary = args.export_summary or args.source.with_suffix(".export-summary.json")
             protected += [args.package, args.baseline, args.export_summary]
@@ -45,8 +51,14 @@ def main(argv: list[str] | None = None) -> int:
                 raise ValueError("baseline does not identify the selected original map path")
             if not isinstance(summary, dict) or not isinstance(summary.get("sha256"), str):
                 raise ValueError("export summary does not contain a source checksum")
-            report = audit_brushes(data, args.package.read_bytes(), args.source.name,
-                                  summary["sha256"], baseline[package_path])
+            operation = audit_brushes if args.command == "validate-brushes" else extract_geometry
+            report = operation(data, args.package.read_bytes(), args.source.name,
+                               summary["sha256"], baseline[package_path])
+            if args.command == "extract-bsp":
+                write_bundle(report,args.output_dir)
+                print(f"Wrote {args.output_dir}: {report['diagnostics']['reachable_nodes']} native BSP nodes, "
+                      f"{report['diagnostics']['render_triangles']} untextured render triangles; no UE5 import.")
+                return 0
         payload = json.dumps(report, indent=2, ensure_ascii=False, allow_nan=False) + "\n"
         if args.output:
             with args.output.open("w" if args.force else "x", encoding="utf-8") as output:

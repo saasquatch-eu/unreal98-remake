@@ -17,7 +17,13 @@
   for the initial geometry and camera questions. The next source-coordinate
   checkpoint is documented in docs/milestones/006-brush-validation.md: binary
   evidence resolves four pivot components, and zero-shear transforms plus an
-  axis-aligned synthetic CSG reference are tested. No castle BSP is evaluated.
+  axis-aligned synthetic CSG reference are tested. The subsequent extraction
+  (docs/milestones/007-evaluated-geometry.md) reads the original compiled BSP
+  through the Level.Model reference. It does not rebuild the brush sequence.
+- Compiled world points are already in source world coordinates; do not apply
+  brush transforms to them again. Preserve raw surface/node flags, texture
+  paths, source boundaries, sky roles, and separate Movers. An OBJ or offline
+  preview does not establish UE5 import, normalized UVs, collision, or playback.
 - Use numeric evidence only when both source and original-package hashes match
   recorded export provenance. Never globally relax the numeric parser or
   rewrite source exports. The binary reader is deliberately limited to v61,
