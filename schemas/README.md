@@ -1,4 +1,5 @@
-# Intermediate schemas
+# Source inspection contract
 
-Reserved for contracts established after real export inspection. No schema is
-invented during setup.
+`t3d-inspection-v1.md` describes the implemented JSON source inventory. It records
+observations from a local export, not evaluated CSG or a UE5 importer contract.
+No geometry-conversion intermediate schema is established yet.

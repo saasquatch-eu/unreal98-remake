@@ -1,0 +1,63 @@
+Begin Map
+    Begin Actor Class=LevelInfo Name=ExampleInfo
+        Song=Music'DemoMusic.Theme'
+        Title="Synthetic courtyard, not a game export"
+    End Actor
+    Begin Actor Class=Brush Name=ExampleBrush
+        MainScale=(Scale=(X=2.0,Z=-1.0),SheerRate=0.25,SheerAxis=SHEER_XY)
+        PostScale=(Scale=(Y=3.0),SheerAxis=SHEER_ZX)
+        CsgOper=CSG_Subtract
+        Begin Brush Name=ExampleModel
+            Begin PolyList
+                Begin Polygon Item="Example Panel" Texture=DemoPkg.Stone.Block Flags=32 Link=2
+                    Origin   +00001.000000,-00002.000000,+00003.000000
+                    Normal   +00000.000000,+00000.000000,+00001.000000
+                    TextureU +00002.000000,+00000.000000,+00000.000000
+                    TextureV +00000.000000,-00004.000000,+00000.000000
+                    Pan U=-7 V=11
+                    Vertex +00001.000000,-00002.000000,+00003.000000
+                    Vertex +00005.000000,-00002.000000,+00003.000000
+                    Vertex +00001.000000,+00006.000000,+00003.000000
+                End Polygon
+            End PolyList
+        End Brush
+        Brush=Model'Example.ExampleModel'
+        Location=(X=12.0,Y=-9.0,Z=4.0)
+        Rotation=(Yaw=8192)
+        PrePivot=(Z=-2.0)
+        UnknownSetting=(Nested=(A="spaces, commas = stay",B=Object'Example.Unknown'))
+    End Actor
+    Begin Actor Class=Brush Name=ExampleReuse
+        CsgOper=CSG_Add
+        Brush=Model'Example.ExampleModel'
+        Location=(X=20.0)
+        PrePivot=(X=3e-05.0)
+    End Actor
+    Begin Actor Class=Mover Name=ExampleMover
+        Brush=Model'Example.ExampleModel'
+        KeyPos(1)=(Z=-48.0)
+        KeyRot(1)=(Yaw=-1024)
+        MoveTime=2.5
+        OpeningSound=Sound'DemoSound.Mechanisms.Door'
+    End Actor
+    Begin Actor Class=InterpolationPoint Name=CameraFirst
+        Tag="ExamplePath"
+        Location=(X=10.0,Y=-20.0,Z=30.0)
+        RateModifier=0.75
+    End Actor
+    Begin Actor Class=InterpolationPoint Name=CameraLater
+        Tag="ExamplePath"
+        Position=7
+        Rotation=(Yaw=-16384,Roll=2048)
+        RateModifier=0.5
+    End Actor
+    Begin Actor Class=InterpolationPoint Name=CameraAlternate
+        Tag="ExamplePath"
+        Position=7
+        RateModifier=0.25
+    End Actor
+    Begin Actor Class=Trigger Name=ExampleTrigger
+        Event="ExamplePath"
+        Message="Escaped \"quote\" and (parentheses), remain"
+    End Actor
+End Map

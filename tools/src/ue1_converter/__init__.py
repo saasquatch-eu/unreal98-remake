@@ -1,1 +1,1 @@
-"""Reserved package for future UE1 conversion tooling; no conversion implemented."""
+"""Local UE1 T3D source inspection; evaluated geometry conversion is not implemented."""

@@ -62,10 +62,17 @@ UE5 `.umap`/`.uasset` paths, are ignored by Git. No placeholder binary assets we
 fabricated. This is not a complete dependency inventory: additional references
 may come from class defaults or other packages during later investigation.
 
-## Remaining work
+## Subsequent work
 
-1. Parse the real intro export with synthetic test fixtures, preserving actor
-   properties, original identifiers, transforms, polygon UV data, and CSG order.
+The first source-inspection checkpoint is now complete; see
+`005-unreal-intro-inspection.md`. The observations above record the original
+folder-preparation stage. The inspection parser and report do not perform
+CSG conversion or create UE5 assets.
+
+## Remaining work from the preparation stage
+
+1. Source parsing is complete: synthetic fixtures cover properties, original
+   identifiers, raw transforms, polygon UV data, and source CSG order.
 2. Establish evaluated BSP geometry; validate subtraction, scale, orientation,
    surface alignment, and sky zones before assuming brush meshes suffice.
 3. Import geometry and the required texture/material/audio resources using the

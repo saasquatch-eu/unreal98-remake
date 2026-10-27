@@ -3,9 +3,14 @@
 Original local installation → extraction → documented intermediate files → UE5
 editor importer → assets and levels, with an independently implemented C++ runtime.
 
-This is a direction for later issues. There is no extraction, conversion, importer,
-or gameplay implementation yet. Do not assume UE5 defaults reproduce UE1 behavior.
+The first implemented component is the editor-independent Python T3D source
+parser and inspection CLI. It retains ordered blocks, raw properties, source
+lines, geometry definitions, and polygon data. The inspection report is an
+inventory rather than evaluated geometry or a UE5 importer contract. Its
+format is documented in `../schemas/t3d-inspection-v1.md`; tests use authored
+synthetic data only.
 
-Keep Python content tooling independent of the UE editor. Introduce intermediate
-schemas when a representative real export has been inspected, with synthetic test
-fixtures kept in Git. Do not fabricate a schema or exporter contract during setup.
+Automated extraction, CSG conversion, importing, and gameplay remain future
+components. Do not assume UE5 defaults reproduce UE1 behavior. Resolve source
+numeric anomalies, shared definitions, and omitted class defaults before
+establishing an evaluated-geometry contract.
