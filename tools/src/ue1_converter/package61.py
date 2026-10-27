@@ -61,6 +61,7 @@ class Export:
     flags: int
     offset: int
     size: int
+    outer: int = 0
 
 
 @dataclass(frozen=True)
@@ -101,13 +102,13 @@ class Package61:
         for index in range(ec):
             cls = reader.compact()
             reader.compact()  # Super reference.
-            reader.unpack("i")  # Outer reference.
+            outer = reader.unpack("i")
             name = self.name(reader.compact())
             flags, size = reader.unpack("I"), reader.compact()
             offset = reader.compact() if size > 0 else 0
             if size < 0 or offset < 0 or offset + size > len(data):
                 raise PackageError("export data outside package")
-            self.exports.append(Export(index, name, cls, flags, offset, size))
+            self.exports.append(Export(index, name, cls, flags, offset, size, outer))
 
     def name(self, index: int) -> str:
         if not 0 <= index < len(self.names):
@@ -121,6 +122,29 @@ class Package61:
         if 0 < ref <= len(self.exports):
             return self.exports[ref - 1].name
         raise PackageError("invalid class reference")
+
+    def object_path(self, reference: int, package_name: str) -> str | None:
+        if reference == 0:
+            return None
+        names, seen = [], set()
+        while reference:
+            if reference in seen:
+                raise PackageError("cycle in object reference path")
+            seen.add(reference)
+            if reference < 0 and -reference <= len(self.imports):
+                _, _, outer, name = self.imports[-reference - 1]
+            elif 0 < reference <= len(self.exports):
+                export = self.exports[reference - 1]
+                name, outer = export.name, export.outer
+                if outer == 0:
+                    names.append(name)
+                    names.append(package_name)
+                    break
+            else:
+                raise PackageError("object reference outside package tables")
+            names.append(name)
+            reference = outer
+        return ".".join(reversed(names))
 
     def vector_property(self, actor_name: str, actor_class: str, property_name: str) -> VectorEvidence:
         matches = [e for e in self.exports if e.name == actor_name and self.class_name(e) == actor_class]

@@ -90,7 +90,13 @@ The published snapshot is a reference for these math semantics, not proof that
 every implementation detail matches the installed 227k binary. Python uses double
 precision and does not reproduce all native float32 intermediate rounding.
 
-## Next checkpoint
+## Subsequent extraction
+
+The evaluated-geometry checkpoint is now complete; see `007-evaluated-geometry.md`.
+It reads the original compiled BSP, including its stored cuts and flags,
+rather than implementing a replacement brush-order evaluator.
+
+## Questions recorded for the next checkpoint
 
 Evaluate the castle's actual ordered BSP with correct solidity flags, shared
 brush instances, portal/sky handling, and separate Movers. Validate representative
