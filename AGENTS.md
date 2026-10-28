@@ -84,7 +84,21 @@
   exact curves/bindings, idle sky GPU parity and all prior triangle/UV checks.
   The deterministic 40 ms waveform approximates native flicker; source class
   timer ranges and excluded-zone records remain explicit. No bolt or thunder
-  behavior is supplied by the inspected class. Camera playback remains pending.
+  behavior is supplied by the inspected class. The camera/audio checkpoint
+  (docs/milestones/017-intro-camera-audio.md) adds a native 51.914-second camera
+  loop and private original music/ambient playback. Use verify_intro_experience.py
+  for the combined stage and its Play helper for runtime camera/audio checks.
+  Preserve binary actor ordering and duplicate-position linking side effects;
+  native frame/timing matching and the original HUD/animated props remain pending.
+  The source backdrop now expands 64x in its shader, with compensated lightning
+  coordinates, fogging disabled and stars/clouds sorted before water. This avoids
+  the former 41m sky-floor occlusion without changing sky buffers or mood values.
+  The existing additive n-floor6 instance now uses the existing opaque parent
+  for 39 entrance-floor triangles; keep original flags, texture, UVs and slots.
+  Never weaken prior geometry checks to admit these explicit presentation changes.
+  Audio uses bounded v61 payloads and an explicitly selected installed libxmp 4.6;
+  never auto-install or search/load arbitrary decoder libraries. Imported PCM
+  readback has explicit source-bit-depth rounding bounds.
 - Use numeric evidence only when both source and original-package hashes match
   recorded export provenance. Never globally relax the numeric parser or
   rewrite source exports. The binary reader is deliberately limited to v61,

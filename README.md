@@ -14,8 +14,11 @@ the golden sunset wash while preserving source light colors. The original star
 textures and a scrolling cloud-sheet preview now form the sky background. All
 three source moons are present, with two rotating at their exported yaw rates.
 A looping source-position lightning preview now adds brief castle and cloud
-flashes while preserving the gloomy baseline. Exact sky matching, collision
-and flyby playback remain unfinished. See the
+flashes while preserving the gloomy baseline. A source-path camera and original
+Flyby music/ambient recordings now play in a loop. The moat remains visible from above and the entrance floor renders solid.
+Exact sky matching, collision, original HUD and animated props remain unfinished.
+See the
+[intro camera/audio report](docs/milestones/017-intro-camera-audio.md),
 [lightning report](docs/milestones/016-source-lightning.md),
 [moons report](docs/milestones/015-source-moons.md),
 [sky background report](docs/milestones/014-original-sky-background.md),
@@ -106,7 +109,7 @@ The prepared UE5 folders are under `ue5/UnrealGoldRemake/Content/Unreal/`. Futur
 intro assets use original source names plus `_ue5`, including
 `Maps/Unreal_ue5.umap` and `Cinematics/Unreal_ue5.uasset`. The private inspection map, three canonical meshes and
 60 lighting render chunks exist locally. Cinematics now contains a lightning
-preview sequence; the camera flyby remains future work.
+preview sequence and the camera flyby.
 The editor still starts with Entry.
 
 See [resource naming](docs/resource-naming.md) and the
@@ -122,5 +125,6 @@ The flame recipe/atlases are under `fire-ready/`; the water recipe, source image
 and atlas are under `water-ready/`. The selected original sky textures and
 compiled miniature buffers are under `sky-ready/`; moon buffers and skins are
 under `moons-ready/`. The lightning recipe is under `lightning-ready/`.
-Next are original-game comparison and camera playback verification.
+The camera/audio recipe and private original recordings are under `intro-ready/`.
+Next are original-game comparison, remaining animated actors and the title/menu.
 Modern lighting is a foundation for the later material and geometry art pass.
