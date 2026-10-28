@@ -178,3 +178,14 @@ baseline verification. `verify_intro_moons.py` checks saved buffers/settings and
 actual GPU mesh rotation using isolated transient scene captures. See
 [the moons checkpoint](../docs/milestones/015-source-moons.md) for commands,
 recovery and the limits of the source-rate animation preview.
+
+## Source-position lightning
+
+`python -m ue1_converter.lightning_prepare` selects active-world/high-detail-sky
+DistanceLightning records and prepares a private periodic timer-range preview.
+`apply_intro_lightning.py` backs up the map and authored cloud parent before
+creating native light/collection tracks. `verify_intro_lightning.py` checks the
+complete saved scene, exact sequence bindings/keys, idle sky parity and each
+cloud pulse on the GPU; its PIE helpers verify autoplay, transition values and
+the native loop boundary. See [the lightning checkpoint](../docs/milestones/016-source-lightning.md)
+for reproduction, recovery and the limits of the deterministic preview.
