@@ -147,3 +147,13 @@ a lit translucent preview with a map recovery copy. `verify_intro_water.py`
 checks the complete saved water/flame scene and every GPU animation frame. See
 [the water checkpoint](../docs/milestones/012-source-water-preview.md) for commands
 and limitations; this is not the native water solver or a gameplay-water volume.
+
+## Darker intro atmosphere
+
+`tools/presets/Unreal_Gloom_ue5.json` records an authored overcast correction.
+`apply_intro_mood.py` validates the preceding saved scene and backs up the map
+and project cloud material before editing. `verify_intro_mood.py` checks the
+combined scene, atmosphere settings, source light colors and animation frames.
+See [the gloom checkpoint](../docs/milestones/013-gloom-lighting.md) for initial
+application, safe refinement and recovery. The preset does not establish an
+original-game lighting or sky match.

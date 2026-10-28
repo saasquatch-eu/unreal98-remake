@@ -4,14 +4,19 @@ import hashlib
 import json
 from pathlib import Path
 import runpy
+import sys
 
 import unreal
 
 ROOT=Path(__file__).resolve().parents[2]
+sys.path.insert(0,str(ROOT/'tools/src'))
+from ue1_converter.mood_profile import load_profile, point_scale
 
 
-def verify(plan_path,report_path):
+def verify(plan_path,report_path,*,lighting_profile=None):
     plan_path=Path(plan_path);plan=json.loads(plan_path.read_text());folder=plan_path.parent
+    profile=load_profile(lighting_profile) if lighting_profile is not None else None
+    settings=plan['lighting'] if profile is None else dict(plan['lighting'],**profile['lighting'])
     material_path=Path(plan['material_plan'])
     if hashlib.sha256(material_path.read_bytes()).hexdigest()!=plan['material_sha256']:raise RuntimeError('material provenance changed')
     for entry in plan['chunks']:
@@ -64,7 +69,7 @@ def verify(plan_path,report_path):
         p=actor.get_actor_location()
         if any(abs(a-b)>0.02 for a,b in zip((p.x,p.y,p.z),entry['location'])):raise RuntimeError('source light moved')
         if c.get_editor_property('mobility')!=unreal.ComponentMobility.MOVABLE or abs(c.get_editor_property('attenuation_radius')-entry['attenuation_radius'])>0.02:raise RuntimeError('source light mobility/radius differs')
-        if abs(c.get_editor_property('intensity')-entry['intensity_lumens'])>0.05 or c.get_editor_property('cast_shadows')!=entry['cast_shadows']:raise RuntimeError('source light intensity/shadow differs')
+        if abs(c.get_editor_property('intensity')-entry['intensity_lumens']*point_scale(entry,profile))>0.05 or c.get_editor_property('cast_shadows')!=entry['cast_shadows']:raise RuntimeError('source light intensity/shadow differs')
         report['source_lights'].append(dict(name=entry['name'],cast_shadows=entry['cast_shadows']))
     expected_cvars={'r.DynamicGlobalIlluminationMethod':1,'r.ReflectionMethod':1,'r.GenerateMeshDistanceFields':1,'r.Lumen.HardwareRayTracing':0,'r.Shadow.Virtual.Enable':1,'r.AntiAliasingMethod':4,'r.Nanite':1}
     report['renderer']={k:unreal.SystemLibrary.get_console_variable_int_value(k) for k in expected_cvars}
@@ -72,16 +77,17 @@ def verify(plan_path,report_path):
     volume=by_name['Unreal_LumenExposure_ue5'];pp=volume.get_editor_property('settings')
     if not pp.get_editor_property('override_motion_blur_amount') or pp.get_editor_property('motion_blur_amount')!=0:raise RuntimeError('static inspection motion blur differs')
     if pp.get_editor_property('auto_exposure_method')!=unreal.AutoExposureMethod.AEM_MANUAL or pp.get_editor_property('reflection_method')!=unreal.ReflectionMethod.LUMEN:raise RuntimeError('manual exposure or Lumen reflections differ')
-    if pp.get_editor_property('auto_exposure_bias')!=plan['lighting']['exposure_bias'] or pp.get_editor_property('dynamic_global_illumination_method')!=unreal.DynamicGlobalIlluminationMethod.LUMEN:raise RuntimeError('Lumen post process differs')
+    if pp.get_editor_property('auto_exposure_bias')!=settings['exposure_bias'] or pp.get_editor_property('dynamic_global_illumination_method')!=unreal.DynamicGlobalIlluminationMethod.LUMEN:raise RuntimeError('Lumen post process differs')
     if not by_name['Unreal_Fog_ue5'].get_component_by_class(unreal.ExponentialHeightFogComponent).get_editor_property('enable_volumetric_fog'):raise RuntimeError('volumetric fog is disabled')
     cloud=by_name['Unreal_Clouds_ue5'].get_component_by_class(unreal.VolumetricCloudComponent).get_editor_property('material')
     if not cloud.get_path_name().startswith('/Game/Unreal/'):raise RuntimeError('cloud material was not localized')
-    for name,value in [('Cloud_GlobalCoverage',plan['lighting']['cloud_coverage']),('Cloud_GlobalDensity',plan['lighting']['cloud_density'])]:
+    for name,value in [('Cloud_GlobalCoverage',settings['cloud_coverage']),('Cloud_GlobalDensity',settings['cloud_density'])]:
         if abs(unreal.MaterialEditingLibrary.get_material_instance_scalar_parameter_value(cloud,name)-value)>1e-5:raise RuntimeError('cloud parameters differ')
     sun=by_name['Unreal_KeyLight_ue5'].get_component_by_class(unreal.DirectionalLightComponent)
-    if sun.get_editor_property('intensity')!=plan['lighting']['sun_lux'] or not sun.get_editor_property('cast_cloud_shadows'):raise RuntimeError('key light differs')
+    if sun.get_editor_property('intensity')!=settings['sun_lux'] or not sun.get_editor_property('cast_cloud_shadows'):raise RuntimeError('key light differs')
     sky=by_name['Unreal_SkyLight_ue5'].get_component_by_class(unreal.SkyLightComponent)
     if not sky.get_editor_property('real_time_capture'):raise RuntimeError('skylight capture is disabled')
+    report['lighting_profile_sha256']=hashlib.sha256(Path(lighting_profile).read_bytes()).hexdigest() if lighting_profile else None
     report['visible_world_triangles']=sum(actual.values());report['movable_mover_triangles']=sum(m['triangle_count'] for m in baseline['meshes'] if m['name']!='Unreal_ue5')
     Path(report_path).write_text(json.dumps(report,indent=2)+'\n');unreal.log('UR_LUMEN_VERIFY_SUCCESS')
     return report

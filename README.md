@@ -9,8 +9,10 @@ assignments. It now uses software Lumen, Nanite world chunks, Virtual Shadow Map
 clouds, subtle fog and source-position lights. The reported shadow overflow is absent
 in the checked castle view. Both original flame references now have animated
 source-palette previews on their 128 triangles. Lit water now uses its original
-image with animated distortion on 278 triangles. Original sky behavior, collision
+image with animated distortion on 278 triangles. A darker overcast pass replaces
+the golden sunset wash while preserving source light colors. Original sky behavior, collision
 and flyby playback remain unfinished. See the
+[gloom lighting report](docs/milestones/013-gloom-lighting.md),
 [water preview report](docs/milestones/012-source-water-preview.md),
 [flame preview report](docs/milestones/011-source-flame-preview.md),
 [Lumen lighting report](docs/milestones/010-lumen-lighting.md),

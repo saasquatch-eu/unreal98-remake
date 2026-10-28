@@ -9,11 +9,11 @@ import unreal
 ROOT = Path(__file__).resolve().parents[2]
 
 
-def verify(plan_path, report_path):
+def verify(plan_path, report_path, *, lighting_profile=None):
     plan_path = Path(plan_path); helper = runpy.run_path(str(ROOT / 'tools/editor/apply_intro_water.py'))
     plan = helper['checked_plan'](plan_path)
     fire = runpy.run_path(str(ROOT / 'tools/editor/verify_intro_fire.py'))
-    baseline = fire['verify'](plan['fire_plan'], ROOT / '.local/logs/unreal-fire-verified.json', additional_bindings=plan['bindings'])
+    baseline = fire['verify'](plan['fire_plan'], ROOT / '.local/logs/unreal-fire-verified.json', additional_bindings=plan['bindings'], lighting_profile=lighting_profile)
     report = dict(status='success', plan_sha256=hashlib.sha256(plan_path.read_bytes()).hexdigest(),
                   world_triangles=baseline['world_triangles'], mover_triangles=baseline['mover_triangles'],
                   flame_triangles=baseline['flame_triangles'], water_triangles=sum(e['triangles'] for e in plan['bindings']),

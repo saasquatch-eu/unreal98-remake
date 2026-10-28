@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "lighting": {
+    "sun_lux": 500.0,
+    "sun_rotation": {
+      "pitch": -35.0,
+      "yaw": 125.0,
+      "roll": 0.0
+    },
+    "sun_source_angle": 8.0,
+    "exposure_bias": -5.5,
+    "cloud_coverage": 0.25,
+    "cloud_density": 0.012,
+    "fog_density": 0.0015
+  },
+  "sky_intensity": 0.6,
+  "sun_soft_angle": 20.0,
+  "cloud_shadow_strength": 0.9,
+  "cloud_bottom_km": 1.5,
+  "cloud_height_km": 8.0,
+  "fog_start_cm": 1000.0,
+  "fog_height_falloff": 0.2,
+  "mie_scattering_scale": 0.01,
+  "point_shadowed_scale": 1.0,
+  "point_fill_scale": 0.6
+}

@@ -36,11 +36,11 @@ def verify_gpu(plan, *, scalar_overrides=None):
     return reports
 
 
-def verify(plan_path, report_path, *, additional_bindings=()):
+def verify(plan_path, report_path, *, additional_bindings=(), lighting_profile=None):
     plan_path = Path(plan_path)
     helper = runpy.run_path(str(ROOT / 'tools/editor/apply_intro_fire.py'))
     plan = helper['checked_plan'](plan_path)
-    baseline = runpy.run_path(str(ROOT / 'tools/editor/verify_lumen_lighting.py'))['verify'](plan['lighting_plan'], ROOT / '.local/logs/unreal-lumen-verified.json')
+    baseline = runpy.run_path(str(ROOT / 'tools/editor/verify_lumen_lighting.py'))['verify'](plan['lighting_plan'], ROOT / '.local/logs/unreal-lumen-verified.json', lighting_profile=lighting_profile)
     actors = {a.get_actor_label(): a for a in unreal.get_editor_subsystem(unreal.EditorActorSubsystem).get_all_level_actors()}
     lighting = json.loads(Path(plan['lighting_plan']).read_text())
     own = {(e['actor'], e['slot']): e for e in plan['bindings']}
