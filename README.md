@@ -1,5 +1,8 @@
 # UnrealGoldRemake
 
+**Continuing with another coding model?** Read the
+[shared handoff](docs/CONTINUE.md) and [project rules](AGENTS.md) first.
+
 A planned Unreal Engine 5 visual remaster that preserves the original gameplay,
 level geometry, atmosphere, and pacing. This is an independent personal project.
 
