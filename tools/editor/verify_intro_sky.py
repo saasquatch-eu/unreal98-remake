@@ -75,7 +75,13 @@ def verify(plan_path, report_path):
         if c.get_material(0) != material or material.parent != parent: raise RuntimeError('sky material binding differs')
         if parent.get_editor_property('is_sky') or not parent.get_editor_property('two_sided') or parent.get_editor_property('shading_model') != unreal.MaterialShadingModel.MSM_UNLIT:
             raise RuntimeError('sky material shading differs')
-        blend = unreal.BlendMode.BLEND_ADDITIVE if entry['mode'] == 'sky_cloud' else unreal.BlendMode.BLEND_OPAQUE
+        far_backdrop = isinstance(edit.get_material_property_input_node(parent, unreal.MaterialProperty.MP_WORLD_POSITION_OFFSET), unreal.MaterialExpressionAdd)
+        blend = unreal.BlendMode.BLEND_ADDITIVE if entry['mode'] == 'sky_cloud' else unreal.BlendMode.BLEND_TRANSLUCENT if far_backdrop else unreal.BlendMode.BLEND_OPAQUE
+        if far_backdrop:
+            if parent.get_editor_property('use_translucency_vertex_fog') or c.get_editor_property('translucency_sort_priority') != (-99 if entry['mode'] == 'sky_cloud' else -100): raise RuntimeError('sky background compositing differs')
+            if entry['mode'] != 'sky_cloud':
+                opacity = edit.get_material_property_input_node(parent, unreal.MaterialProperty.MP_OPACITY)
+                if not isinstance(opacity, unreal.MaterialExpressionConstant) or opacity.get_editor_property('r') != 1: raise RuntimeError('star backdrop opacity differs')
         if parent.get_editor_property('blend_mode') != blend: raise RuntimeError('sky blend differs')
         texture = unreal.load_asset(next(t['asset_path'] for t in plan['textures'] if t['path'] == entry['texture']))
         if edit.get_material_instance_texture_parameter_value(material, 'OriginalColor') != texture: raise RuntimeError('sky source texture differs')
@@ -86,6 +92,30 @@ def verify(plan_path, report_path):
             if any(abs(v - e) > 1e-6 for v, e in zip((rate.r, rate.g), entry['pan_uv_per_second'])) or any(v != 0 for v in (phase.r, phase.g, phase.b, phase.a)):
                 raise RuntimeError('cloud motion differs')
         root = edit.get_material_property_input_node(parent, unreal.MaterialProperty.MP_WORLD_POSITION_OFFSET)
+        if isinstance(root, unreal.MaterialExpressionAdd):
+            # Explicit far-backdrop profile; canonical sky buffers and actor transforms stay exact.
+            parts = edit.get_inputs_for_material_expression(parent, root)
+            if len(parts) != 2 or not isinstance(parts[1], unreal.MaterialExpressionMultiply): raise RuntimeError('far-backdrop output differs')
+            expansion = edit.get_inputs_for_material_expression(parent, parts[1])
+            if len(expansion) != 2 or not isinstance(expansion[0], unreal.MaterialExpressionSubtract) or not isinstance(expansion[1], unreal.MaterialExpressionMultiply): raise RuntimeError('far-backdrop expansion differs')
+            positions = edit.get_inputs_for_material_expression(parent, expansion[0]); amount = edit.get_inputs_for_material_expression(parent, expansion[1])
+            if len(positions) != 2 or not isinstance(positions[0], unreal.MaterialExpressionWorldPosition) or positions[0].get_editor_property('world_position_shader_offset') != unreal.WorldPositionIncludedOffsets.WPT_EXCLUDE_ALL_SHADER_OFFSETS or not isinstance(positions[1], unreal.MaterialExpressionActorPositionWS): raise RuntimeError('far-backdrop source coordinates differ')
+            if len(amount) != 2 or not isinstance(amount[0], unreal.MaterialExpressionSubtract) or not isinstance(amount[1], unreal.MaterialExpressionScalarParameter) or str(amount[1].get_editor_property('parameter_name')) != 'FollowCamera': raise RuntimeError('far-backdrop follow control differs')
+            scale = edit.get_inputs_for_material_expression(parent, amount[0])
+            if len(scale) != 2 or not isinstance(scale[0], unreal.MaterialExpressionScalarParameter) or str(scale[0].get_editor_property('parameter_name')) != 'BackdropDistanceScale' or scale[0].get_editor_property('default_value') != 64 or not isinstance(scale[1], unreal.MaterialExpressionConstant) or scale[1].get_editor_property('r') != 1: raise RuntimeError('far-backdrop scale differs')
+            if edit.get_material_instance_scalar_parameter_value(material, 'BackdropDistanceScale') != 64: raise RuntimeError('sky instance overrides far-backdrop scale')
+            if entry['mode'] == 'sky_cloud':
+                projections = []
+                for expression in edit.get_material_expressions(parent):
+                    if not isinstance(expression, unreal.MaterialExpressionDivide): continue
+                    terms = edit.get_inputs_for_material_expression(parent, expression)
+                    if len(terms) != 2 or not isinstance(terms[1], unreal.MaterialExpressionMultiply): continue
+                    denominator = edit.get_inputs_for_material_expression(parent, terms[1])
+                    if len(denominator) == 2 and isinstance(denominator[0], unreal.MaterialExpressionConstant) and denominator[0].get_editor_property('r') == 128 and isinstance(denominator[1], unreal.MaterialExpressionAdd): projections.append(denominator[1])
+                if len(projections) != 1: raise RuntimeError('cloud projection compensation missing')
+                effective = edit.get_inputs_for_material_expression(parent, projections[0])
+                if len(effective) != 2 or not isinstance(effective[0], unreal.MaterialExpressionConstant) or effective[0].get_editor_property('r') != 1 or effective[1] != expansion[1]: raise RuntimeError('cloud projection compensation differs')
+            root = parts[0]
         if not isinstance(root, unreal.MaterialExpressionMultiply): raise RuntimeError('camera-centering graph missing')
         inputs = edit.get_inputs_for_material_expression(parent, root)
         if len(inputs) != 2 or not isinstance(inputs[0], unreal.MaterialExpressionSubtract) or not isinstance(inputs[1], unreal.MaterialExpressionScalarParameter) or str(inputs[1].get_editor_property('parameter_name')) != 'FollowCamera':

@@ -189,3 +189,15 @@ complete saved scene, exact sequence bindings/keys, idle sky parity and each
 cloud pulse on the GPU; its PIE helpers verify autoplay, transition values and
 the native loop boundary. See [the lightning checkpoint](../docs/milestones/016-source-lightning.md)
 for reproduction, recovery and the limits of the deterministic preview.
+
+## Intro playback and visibility
+
+`python -m ue1_converter.intro_prepare` verifies binary camera order/values and
+prepares a private linked-path preview plus original audio. Supply an explicit
+installed libxmp 4.6 path for IT-to-PCM rendering. `extend_intro_sky.py` and
+`correct_intro_surfaces.py` correct finite-backdrop occlusion, fog compositing and
+the additive entrance floor; run them in that order before
+`apply_intro_experience.py`. `verify_intro_experience.py` checks the complete saved
+scene, camera keys/cut binding and imported PCM; its Play helper verifies native
+camera/audio playback and a real loop. See [the intro report](../docs/milestones/017-intro-camera-audio.md)
+for commands, recovery and remaining original-runtime fidelity work.
