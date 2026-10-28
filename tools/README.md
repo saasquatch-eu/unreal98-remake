@@ -157,3 +157,13 @@ combined scene, atmosphere settings, source light colors and animation frames.
 See [the gloom checkpoint](../docs/milestones/013-gloom-lighting.md) for initial
 application, safe refinement and recovery. The preset does not establish an
 original-game lighting or sky match.
+
+## Original-image sky background
+
+`python -m ue1_converter.sky_prepare` selects the explicitly marked high-detail
+sky and prepares original P8 images plus compiled sky buffers in private storage.
+`apply_intro_sky.py` creates a camera-centered backdrop after complete baseline
+verification and a map backup. `verify_intro_sky.py` reloads the combined scene
+and checks sky buffers, camera-offset graph, bindings and GPU cloud sampling.
+See [the sky checkpoint](../docs/milestones/014-original-sky-background.md) for
+commands and the limits of this preview, including deferred moons and lightning.

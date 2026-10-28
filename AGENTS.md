@@ -63,6 +63,12 @@
   point-light colors and exact geometry/bindings remain required. Initial apply
   expects the water baseline; refinements require the frozen previously applied
   profile from the recovery copy. Original sky matching remains unfinished.
+  The source sky background (docs/milestones/014-original-sky-background.md) adds
+  82 separate camera-centered sky triangles, leaving all world/Mover data intact.
+  Use verify_intro_sky.py for this combined stage. The source-image backdrop uses
+  regular unlit materials, Is Sky disabled, and no realtime sky/reflection capture
+  participation, preserving the atmosphere-driven lighting rig. The scroll rate
+  is an authored preview; moons, lightning and exact sky matching remain pending.
 - Use numeric evidence only when both source and original-package hashes match
   recorded export provenance. Never globally relax the numeric parser or
   rewrite source exports. The binary reader is deliberately limited to v61,
