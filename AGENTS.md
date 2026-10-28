@@ -57,6 +57,12 @@
   Use verify_intro_water.py for the combined stage; it supplies checked water
   bindings to the flame verifier and checks all water/flame GPU frames. Source
   mesh/UV/material data stays unchanged; saved water PreviewEmissive must be zero.
+  The gloom correction (docs/milestones/013-gloom-lighting.md) uses the authored
+  Unreal_Gloom_ue5.json preset without rewriting the original lighting recipe.
+  Use verify_intro_mood.py for this stage. Neutral environment lights, unchanged
+  point-light colors and exact geometry/bindings remain required. Initial apply
+  expects the water baseline; refinements require the frozen previously applied
+  profile from the recovery copy. Original sky matching remains unfinished.
 - Use numeric evidence only when both source and original-package hashes match
   recorded export provenance. Never globally relax the numeric parser or
   rewrite source exports. The binary reader is deliberately limited to v61,
