@@ -43,6 +43,10 @@ preserve are **7,135 world + 116 Mover + 82 sky + 672 moon triangles**.
 The current sequence is a reconstruction, not a captured frame-by-frame match
 to Unreal Gold. No collision or complete original intro runtime is claimed.
 
+A separate private **Nali visual model prototype** was generated after PR #17.
+It has four visible arms but is unrigged, very dense and not imported into UE5.
+See `docs/milestones/018-nali-model-prototype.md` before character work.
+
 ## What remains
 
 - Compare captured original intro frames and audio against the UE5 playback;
@@ -56,9 +60,9 @@ to Unreal Gold. No collision or complete original intro runtime is claimed.
   **not** present in the current intro preview.
 - The castle source contains `Nali0` with `Orders=Patroling` (source spelling),
   `OrderTag=P1`, and four `PatrolPoint` records around the walls. Verify full
-  links and behavior from source before implementing a route. A realistic Nali
-  model is a proposed art task; no Meshy character has been generated or
-  imported yet. Its four arms need a deliberate rig and animation plan.
+  links and behavior from source before implementing a route. The Meshy Nali
+  prototype remains private and unrigged; its four arms need a custom rig and
+  animation plan.
 
 Choose one bounded next milestone and record exact acceptance criteria before
 editing. Do not infer that a discussion of an idea authorized paid asset
