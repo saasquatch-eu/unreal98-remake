@@ -25,7 +25,7 @@ Check Git and the live editor before treating any status below as current.
   available from a fresh clone**. See `docs/asset-pipeline.md` and
   `docs/resource-naming.md`.
 
-## Current checkpoint (2026-10-28, merged PR #18)
+## Current checkpoint (2026-10-28, merged PR #19)
 
 The private castle preview contains the evaluated original world, original
 texture assignments, software Lumen lighting, Nanite render chunks, VSM,
@@ -49,6 +49,14 @@ See `docs/milestones/018-nali-model-prototype.md` before character work.
 The follow-on source-motion checkpoint in `docs/milestones/019-nali-source-walk.md`
 identifies `UnrealShare.Nali1` as the castle Nali mesh and prepares its 20-frame
 `Walk` reference privately. It does not supply a four-arm rig or UE5 animation.
+The geometry probe in `docs/milestones/020-nali-geometry-probe.md` shows the
+Meshy prototype has 906 disconnected islands. A separate 80,000-triangle,
+closed geometry-only shell preserves the silhouette, but a four-arm automatic
+weight stress test visibly deforms badly. Custom shoulder topology and painted
+weights are required before a usable rig can be claimed.
+The owner can inspect the textured prototype in the private Blender scene
+`data/converted/Unreal/Characters/Nali/review-scene-20261028/Nali_review_ue5.blend`;
+the geometry probe is present but hidden by default.
 
 ## What remains
 
@@ -66,7 +74,8 @@ identifies `UnrealShare.Nali1` as the castle Nali mesh and prepares its 20-frame
   links and behavior from source before implementing a route. The Meshy Nali
   prototype remains private and unrigged; its four arms need a custom rig and
   animation plan. Use `Nali1` source `Walk` poses, not playable `Nali2` poses,
-  as the initial motion reference.
+  as the initial motion reference. Do not treat the geometry probe or its
+  rejected automatic weights as a game-ready character.
 
 Choose one bounded next milestone and record exact acceptance criteria before
 editing. Do not infer that a discussion of an idea authorized paid asset
