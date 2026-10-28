@@ -1,5 +1,9 @@
 # Project guidance
 
+Start with `docs/CONTINUE.md` for the current checkpoint, open work, and the
+session handoff. Milestone reports describe historical checkpoints; verify Git,
+private files and editor state before acting on an older status statement.
+
 ## Scope and intent
 
 - UR-002's native C++ foundation is complete. The current assignment is to prepare
