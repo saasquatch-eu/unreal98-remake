@@ -69,6 +69,14 @@
   regular unlit materials, Is Sky disabled, and no realtime sky/reflection capture
   participation, preserving the atmosphere-driven lighting rig. The scroll rate
   is an authored preview; moons, lightning and exact sky matching remain pending.
+  The moons checkpoint (docs/milestones/015-source-moons.md) adds three separate
+  source-actor previews, 672 triangles total, with original skin images and source
+  yaw-rate shader motion. Use verify_intro_moons.py for this combined stage.
+  moon69.py is a separate bounded resource reader for installed v69 licensee 0/227
+  assets; Package61 and existing map/BSP/texture admission remain strict. Require
+  matching full-detail mesh/UV/transform and pixel/palette evidence from both local
+  installations. Application resources stay read-only. Native phase/lighting and
+  original frame matching remain unverified; lightning remains the next target.
 - Use numeric evidence only when both source and original-package hashes match
   recorded export provenance. Never globally relax the numeric parser or
   rewrite source exports. The binary reader is deliberately limited to v61,
