@@ -129,7 +129,7 @@ def render_fire(fire, *, frames=64, warmup=128, seed=0):
     return [bytes(((frames - t) * b + t * a) // frames for a, b in zip(snapshots[t], snapshots[t + frames])) for t in range(frames)]
 
 
-def atlas_tga(fire, frames, *, columns=8, padding=2):
+def atlas_tga(fire, frames, *, columns=8, padding=2, masked=True, wrap_padding=False):
     if not frames or not isinstance(columns, int) or columns <= 0 or len(frames) % columns or not isinstance(padding, int) or not 0 <= padding <= 16:
         raise ValueError('invalid fire atlas layout')
     if any(len(frame) != fire.width * fire.height for frame in frames):
@@ -142,7 +142,12 @@ def atlas_tga(fire, frames, *, columns=8, padding=2):
     pixels = bytearray(width * height)
     for index, frame in enumerate(frames):
         col, row = index % columns, index // columns
+        if wrap_padding:
+            for y in range(cell_h):
+                start = (row * cell_h + y) * width + col * cell_w
+                pixels[start:start + cell_w] = bytes(frame[((y - padding) % fire.height) * fire.width + (x - padding) % fire.width] for x in range(cell_w))
+            continue
         for y in range(fire.height):
             start = (row * cell_h + padding + y) * width + col * cell_w + padding
             pixels[start:start + fire.width] = frame[y * fire.width:(y + 1) * fire.width]
-    return tga_bytes(Texture(width, height, bytes(pixels), fire.palette, {}), masked=True)
+    return tga_bytes(Texture(width, height, bytes(pixels), fire.palette, {}), masked=masked)

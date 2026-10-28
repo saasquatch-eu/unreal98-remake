@@ -10,14 +10,14 @@ import unreal
 ROOT = Path(__file__).resolve().parents[2]
 
 
-def verify_gpu(plan):
+def verify_gpu(plan, *, scalar_overrides=None):
     """Draw every frame through the real material function using transient MIDs/targets."""
     world = unreal.get_editor_subsystem(unreal.UnrealEditorSubsystem).get_editor_world()
     reports = []
     for entry in plan['textures']:
         mid = unreal.MaterialLibrary.create_dynamic_material_instance(world, unreal.load_asset(entry['material_path']))
-        mid.set_scalar_parameter_value('PlaybackRate', 0.0)
-        mid.set_scalar_parameter_value('EmissiveStrength', 1.0)
+        values = dict(PlaybackRate=0.0, EmissiveStrength=1.0) if scalar_overrides is None else scalar_overrides
+        for name, value in values.items(): mid.set_scalar_parameter_value(name, value)
         hashes = []; counts = []
         for frame in range(entry['frames']):
             target = unreal.RenderingLibrary.create_render_target2d(world, entry['width'], entry['height'], unreal.TextureRenderTargetFormat.RTF_RGBA8)
@@ -25,25 +25,35 @@ def verify_gpu(plan):
             unreal.RenderingLibrary.clear_render_target2d(world, target, unreal.LinearColor(0, 0, 0, 1))
             unreal.RenderingLibrary.draw_material_to_render_target(world, target, mid)
             colors = unreal.RenderingLibrary.read_render_target_raw(world, target, False)
-            if len(colors) != entry['width'] * entry['height']: raise RuntimeError('GPU fire readback dimensions differ')
+            if len(colors) != entry['width'] * entry['height']: raise RuntimeError('GPU animation readback dimensions differ')
             counts.append(sum(max(c.r, c.g, c.b) > 0.002 for c in colors))
             hashes.append(hashlib.sha256(b''.join(struct.pack('<fff', c.r, c.g, c.b) for c in colors)).hexdigest())
             if frame in (0, entry['frames'] // 2):
                 unreal.RenderingLibrary.export_render_target(world, target, str(ROOT / '.local'), entry['path'].split('.')[-1] + '-gpu-' + str(frame) + '.png')
             unreal.RenderingLibrary.release_render_target2d(target)
-        if min(counts) <= 10 or len(set(hashes)) < 2: raise RuntimeError('fire frames are blank or animation does not change')
+        if min(counts) <= 10 or len(set(hashes)) < 2: raise RuntimeError('animation frames are blank or do not change')
         reports.append(dict(path=entry['path'], rendered_frames=len(hashes), distinct_frames=len(set(hashes)), nonblack_pixels=counts, frame_hashes=hashes))
     return reports
 
 
-def verify(plan_path, report_path):
+def verify(plan_path, report_path, *, additional_bindings=()):
     plan_path = Path(plan_path)
     helper = runpy.run_path(str(ROOT / 'tools/editor/apply_intro_fire.py'))
     plan = helper['checked_plan'](plan_path)
     baseline = runpy.run_path(str(ROOT / 'tools/editor/verify_lumen_lighting.py'))['verify'](plan['lighting_plan'], ROOT / '.local/logs/unreal-lumen-verified.json')
     actors = {a.get_actor_label(): a for a in unreal.get_editor_subsystem(unreal.EditorActorSubsystem).get_all_level_actors()}
     lighting = json.loads(Path(plan['lighting_plan']).read_text())
-    bindings = {(e['actor'], e['slot']): e for e in plan['bindings']}
+    own = {(e['actor'], e['slot']): e for e in plan['bindings']}
+    bindings = dict(own)
+    for entry in additional_bindings:
+        key = entry['actor'], entry['slot']
+        if key in bindings: raise RuntimeError('conflicting later-stage material binding')
+        bindings[key] = entry
+    chunks = {e['name']: e for e in lighting['chunks']}
+    for (actor, slot), entry in bindings.items():
+        chunk = chunks.get(actor)
+        if chunk is None or not 0 <= slot < len(chunk['materials']) or chunk['materials'][slot] != entry['original_material']:
+            raise RuntimeError('material binding source differs')
     parent = unreal.load_asset(helper['PARENT']); edit = unreal.MaterialEditingLibrary
     if not parent or parent.get_editor_property('blend_mode') != unreal.BlendMode.BLEND_ADDITIVE or not parent.get_editor_property('two_sided'):
         raise RuntimeError('fire material blend/sides differ')
@@ -75,8 +85,9 @@ def verify(plan_path, report_path):
             if component.get_material(slot) != unreal.load_asset(wanted): raise RuntimeError('unexpected visible material binding')
             if binding:
                 if chunk['nanite'] or component.get_editor_property('cast_shadow'): raise RuntimeError('fire shadow/Nanite admission differs')
-                report['bindings'].append(binding)
-    if len(report['bindings']) != len(bindings): raise RuntimeError('fire binding missing')
+                if (chunk['name'], slot) in own: report['bindings'].append(binding)
+    if len(report['bindings']) != len(own): raise RuntimeError('fire binding missing')
+    report['additional_binding_count'] = len(additional_bindings)
     report['flame_triangles'] = sum(e['triangles'] for e in report['bindings'])
     report['gpu'] = verify_gpu(plan)
     Path(report_path).write_text(json.dumps(report, indent=2) + '\n')
