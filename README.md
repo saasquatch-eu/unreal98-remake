@@ -19,6 +19,9 @@ three source moons are present, with two rotating at their exported yaw rates.
 A looping source-position lightning preview now adds brief castle and cloud
 flashes while preserving the gloomy baseline. A source-path camera and original
 Flyby music/ambient recordings now play in a loop. The moat remains visible from above and the entrance floor renders solid.
+A separate four-armed Nali visual prototype has been generated privately; it is
+not yet an animated UE5 character. See the
+[Nali model checkpoint](docs/milestones/018-nali-model-prototype.md).
 Exact sky matching, collision, original HUD and animated props remain unfinished.
 See the
 [intro camera/audio report](docs/milestones/017-intro-camera-audio.md),
