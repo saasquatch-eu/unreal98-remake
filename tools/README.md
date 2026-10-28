@@ -167,3 +167,14 @@ verification and a map backup. `verify_intro_sky.py` reloads the combined scene
 and checks sky buffers, camera-offset graph, bindings and GPU cloud sampling.
 See [the sky checkpoint](../docs/milestones/014-original-sky-background.md) for
 commands and the limits of this preview, including deferred moons and lightning.
+
+## Source moons
+
+`python -m ue1_converter.moon_prepare` reads the existing local Unreal and UT99
+resource packages through a separate bounded v69 decoder, requires matching mesh
+and image payloads, and prepares source-position moon buffers privately.
+`apply_intro_moons.py` creates the three actors after a map backup and complete
+baseline verification. `verify_intro_moons.py` checks saved buffers/settings and
+actual GPU mesh rotation using isolated transient scene captures. See
+[the moons checkpoint](../docs/milestones/015-source-moons.md) for commands,
+recovery and the limits of the source-rate animation preview.

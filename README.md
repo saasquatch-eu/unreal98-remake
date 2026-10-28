@@ -11,9 +11,11 @@ in the checked castle view. Both original flame references now have animated
 source-palette previews on their 128 triangles. Lit water now uses its original
 image with animated distortion on 278 triangles. A darker overcast pass replaces
 the golden sunset wash while preserving source light colors. The original star
-textures and a scrolling cloud-sheet preview now form the sky background. Moons,
-lightning, exact sky matching, collision
+textures and a scrolling cloud-sheet preview now form the sky background. All
+three source moons are present, with two rotating at their exported yaw rates.
+Lightning, exact sky matching, collision
 and flyby playback remain unfinished. See the
+[moons report](docs/milestones/015-source-moons.md),
 [sky background report](docs/milestones/014-original-sky-background.md),
 [gloom lighting report](docs/milestones/013-gloom-lighting.md),
 [water preview report](docs/milestones/012-source-water-preview.md),
@@ -114,6 +116,7 @@ Original-color images and full UV/material buffers are under `materials-ready/`.
 The Lumen recipe and lossless render chunks are under `lighting-ready/`.
 The flame recipe/atlases are under `fire-ready/`; the water recipe, source image
 and atlas are under `water-ready/`. The selected original sky textures and
-compiled miniature buffers are under `sky-ready/`. Next are moons, lightning,
+compiled miniature buffers are under `sky-ready/`; moon buffers and skins are
+under `moons-ready/`. Next are lightning,
 original-game comparison and camera playback verification.
 Modern lighting is a foundation for the later material and geometry art pass.
