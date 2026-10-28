@@ -25,7 +25,7 @@ Check Git and the live editor before treating any status below as current.
   available from a fresh clone**. See `docs/asset-pipeline.md` and
   `docs/resource-naming.md`.
 
-## Current checkpoint (2026-10-28, merged PR #16)
+## Current checkpoint (2026-10-28, merged PR #18)
 
 The private castle preview contains the evaluated original world, original
 texture assignments, software Lumen lighting, Nanite render chunks, VSM,
@@ -46,6 +46,9 @@ to Unreal Gold. No collision or complete original intro runtime is claimed.
 A separate private **Nali visual model prototype** was generated after PR #17.
 It has four visible arms but is unrigged, very dense and not imported into UE5.
 See `docs/milestones/018-nali-model-prototype.md` before character work.
+The follow-on source-motion checkpoint in `docs/milestones/019-nali-source-walk.md`
+identifies `UnrealShare.Nali1` as the castle Nali mesh and prepares its 20-frame
+`Walk` reference privately. It does not supply a four-arm rig or UE5 animation.
 
 ## What remains
 
@@ -62,7 +65,8 @@ See `docs/milestones/018-nali-model-prototype.md` before character work.
   `OrderTag=P1`, and four `PatrolPoint` records around the walls. Verify full
   links and behavior from source before implementing a route. The Meshy Nali
   prototype remains private and unrigged; its four arms need a custom rig and
-  animation plan.
+  animation plan. Use `Nali1` source `Walk` poses, not playable `Nali2` poses,
+  as the initial motion reference.
 
 Choose one bounded next milestone and record exact acceptance criteria before
 editing. Do not infer that a discussion of an idea authorized paid asset

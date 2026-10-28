@@ -50,8 +50,9 @@ visual and engine checks.
 The installed Game Asset Production skill's `game-dev` CLI was not present, so
 its packaging/validation workflow was not run. Blender was used only for a
 read-only import and topology query; no mesh normalization or rigging occurred.
-The original `UnrealI.u` contains `Nali2` as a LodMesh, but its original
-animation frames have not yet been extracted or compared. No Meshy auto-rig,
+The original `UnrealI.u` contains `Nali2` as a LodMesh, but that is the
+playable `NaliPlayer` mesh. The castle `Nali0` uses `Nali1` from
+`UnrealShare.u`; its `Walk` frames are documented in milestone 019. No Meshy auto-rig,
 animation, remesh or additional paid task has been submitted.
 
 ## Continue from here
