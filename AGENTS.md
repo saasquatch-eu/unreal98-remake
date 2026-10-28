@@ -76,7 +76,15 @@
   assets; Package61 and existing map/BSP/texture admission remain strict. Require
   matching full-detail mesh/UV/transform and pixel/palette evidence from both local
   installations. Application resources stay read-only. Native phase/lighting and
-  original frame matching remain unverified; lightning remains the next target.
+  original frame matching remain unverified. The lightning checkpoint
+  (docs/milestones/016-source-lightning.md) adds 18 source-position lights, 11
+  localized cloud pulses and a native 128-second sequence preview. Use
+  verify_intro_lightning.py for the combined stage and its PIE helpers for
+  runtime transition/loop checks. Preserve zero saved light/collection values,
+  exact curves/bindings, idle sky GPU parity and all prior triangle/UV checks.
+  The deterministic 40 ms waveform approximates native flicker; source class
+  timer ranges and excluded-zone records remain explicit. No bolt or thunder
+  behavior is supplied by the inspected class. Camera playback remains pending.
 - Use numeric evidence only when both source and original-package hashes match
   recorded export provenance. Never globally relax the numeric parser or
   rewrite source exports. The binary reader is deliberately limited to v61,

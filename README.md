@@ -13,8 +13,10 @@ image with animated distortion on 278 triangles. A darker overcast pass replaces
 the golden sunset wash while preserving source light colors. The original star
 textures and a scrolling cloud-sheet preview now form the sky background. All
 three source moons are present, with two rotating at their exported yaw rates.
-Lightning, exact sky matching, collision
+A looping source-position lightning preview now adds brief castle and cloud
+flashes while preserving the gloomy baseline. Exact sky matching, collision
 and flyby playback remain unfinished. See the
+[lightning report](docs/milestones/016-source-lightning.md),
 [moons report](docs/milestones/015-source-moons.md),
 [sky background report](docs/milestones/014-original-sky-background.md),
 [gloom lighting report](docs/milestones/013-gloom-lighting.md),
@@ -102,8 +104,10 @@ output contains game-derived data and must remain in the ignored local folders.
 
 The prepared UE5 folders are under `ue5/UnrealGoldRemake/Content/Unreal/`. Future
 intro assets use original source names plus `_ue5`, including
-`Maps/Unreal_ue5.umap` and `Cinematics/Unreal_ue5.uasset`. The private inspection map, three canonical meshes and 60 lighting render chunks exist locally; Cinematics
-assets remain future work. The editor still starts with Entry.
+`Maps/Unreal_ue5.umap` and `Cinematics/Unreal_ue5.uasset`. The private inspection map, three canonical meshes and
+60 lighting render chunks exist locally. Cinematics now contains a lightning
+preview sequence; the camera flyby remains future work.
+The editor still starts with Entry.
 
 See [resource naming](docs/resource-naming.md) and the
 [intro preparation report](docs/milestones/003-unreal-intro-preparation.md).
@@ -117,6 +121,6 @@ The Lumen recipe and lossless render chunks are under `lighting-ready/`.
 The flame recipe/atlases are under `fire-ready/`; the water recipe, source image
 and atlas are under `water-ready/`. The selected original sky textures and
 compiled miniature buffers are under `sky-ready/`; moon buffers and skins are
-under `moons-ready/`. Next are lightning,
-original-game comparison and camera playback verification.
+under `moons-ready/`. The lightning recipe is under `lightning-ready/`.
+Next are original-game comparison and camera playback verification.
 Modern lighting is a foundation for the later material and geometry art pass.
