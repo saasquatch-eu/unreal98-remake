@@ -32,9 +32,9 @@ muscle simulation, source-matched animation or a UE5 character.
   high-detail guide hidden. The GLB contains one skin with all 91 joints,
   25 primitives, 4,656 triangles and `JOINTS_0`, `WEIGHTS_0`, `TEXCOORD_0`
   on every primitive. Every exported mesh name ends `_ue5`.
-- Add source-guided walk, corrective muscle behavior, physics and castle
-  patrol: **pending**. The GLB has no animation or textures. No UE5 import,
-  saved asset check or Play test was performed.
+- Add a viewable motion loop: **met for an authored preview** in the follow-on
+  below. Source-matched walking, corrective muscle behavior, physics and
+  castle patrol remain **pending**. No UE5 import or Play test was performed.
 
 ## Private outputs and provenance
 
@@ -75,7 +75,49 @@ The script rejects a mismatched skeleton hash, an existing destination,
 unweighted vertices and immobile hands. The final private run succeeded;
 saved `.blend` and `.glb` were separately inspected. The full repository
 Python suite passed **285 tests** with Python 3.12.14 and `PYTHONPATH=tools/src`.
-No additional software or paid-provider credits were used in this checkpoint.
+No software installation or paid-provider credits were needed.
+
+## Viewable walk preview follow-on
+
+The first walk preview is saved privately at
+`data/converted/Unreal/Characters/Nali/walk-preview-20261029-v3/`:
+
+- `Nali1_WalkPreview_ue5.gif` — looping 20-frame visual preview, SHA-256
+  `a0506d5de496f41e9db3345be28c0971a13a23664d19d342308c5435f1ff9b2e`.
+  ImageIO stores approximately 0.07 seconds per frame, so the GIF runs
+  slightly slower than the Blender action's exact 15 fps.
+- `Nali1_WalkPreview_ue5.blend` — editable Blender action, SHA-256
+  `39c76cf3e79a74794d10648fb37c8728dac106887214bf7d36895c5e8305e880`.
+  Reopening it found action `Nali1_WalkPreview_ue5`, frames 0–20, 15 fps and
+  the same 91 bones. Select the armature and press Play in Blender's timeline.
+- `Nali1_WalkPreview_ue5.glb` — skinned animated export, SHA-256
+  `c87858aa7886efa02a7de683c83fb42998ca8b9e46838b5c986b5b508ed72508`.
+  Saved GLB readback found one animation with 273 channels, one 91-joint skin,
+  25 meshes and a duration of 1.333333 seconds.
+- Twenty numbered PNG frames and `Nali1_WalkPreview_ue5.json` preserve the
+  rendered sequence, source hash and frame hashes. Frames 0, 5, 10 and 15
+  were visually inspected from an oblique camera angle.
+
+The clip is **in place** and uses authored sinusoidal joint angles. It takes
+only the original `Walk` sequence's 20-frame/15-fps nominal timing and the
+independent lower-arm motion as cues. It does not reconstruct the original
+293-vertex poses, patrol movement, contact physics, muscles or sound.
+Blender on this Mac has no FFmpeg output option, so the PNGs were assembled
+with the installed macOS Swift/ImageIO tool. ImageIO readback confirmed all
+20 GIF frames and their 0.07-second delays. No installation or provider
+credits were needed.
+
+To regenerate, run the tracked Blender script using a new private directory,
+then run the tracked Swift encoder on that directory:
+
+```sh
+/Applications/Blender.app/Contents/MacOS/Blender --background \
+  --python tools/convert/nali_walk_preview.py -- \
+  --source data/converted/Unreal/Characters/Nali/deform-blockout-20261029-v6/Nali1_blockout_ue5.blend \
+  --output-dir data/converted/Unreal/Characters/Nali/walk-preview-NEW
+/usr/bin/swift tools/convert/nali_frames_to_gif.swift \
+  data/converted/Unreal/Characters/Nali/walk-preview-NEW
+```
 
 ## Next character checkpoint
 

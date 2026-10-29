@@ -71,8 +71,10 @@ The next checkpoint in `docs/milestones/023-nali-deformation-blockout.md`
 adds an independently authored, private low-detail mannequin on that
 skeleton. Its saved GLB has one 91-joint skin, 25 weighted/UV-mapped parts and
 4,656 triangles. All four arms move in a stress pose, but visible shoulder
-gaps and crude anatomy reject it as the final Nali. It has no source textures,
-muscle mechanics, animation or UE5 import.
+gaps and crude anatomy reject it as the final Nali. A private 20-frame,
+15-fps in-place walk preview can be watched as a GIF or in Blender; it is
+authored motion, not a source-frame retarget. Source textures, muscle
+mechanics and UE5 import remain pending.
 
 ## What remains
 
