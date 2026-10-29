@@ -25,7 +25,7 @@ Check Git and the live editor before treating any status below as current.
   available from a fresh clone**. See `docs/asset-pipeline.md` and
   `docs/resource-naming.md`.
 
-## Current checkpoint (2026-10-29, merged PR #20; patrol source work pending review)
+## Current checkpoint (2026-10-29, merged PR #21; skeleton layout pending review)
 
 The private castle preview contains the evaluated original world, original
 texture assignments, software Lumen lighting, Nanite render chunks, VSM,
@@ -60,6 +60,13 @@ the geometry probe is present but hidden by default.
 The source patrol checkpoint in `docs/milestones/021-nali-patrol-source.md`
 resolves `Nali0` and all four tagged wall points from the checked original
 map into an ignored private JSON plan. It does not add a UE5 character.
+The Nali skeleton-layout checkpoint in
+`docs/milestones/022-nali-skeleton-layout.md` records one owner-approved
+5-credit Meshy quad remesh. Its saved GLB retains textures but has 1,551
+disconnected pieces, so it is rejected for skinning. A new private Blender
+scene contains a 91-bone, four-arm skeleton template and the unchanged visual
+model as a guide. Independent arm parenting and saved readback passed. No
+deformation mesh, skin weights, muscle behavior or walk animation is present.
 
 ## What remains
 
@@ -75,10 +82,11 @@ map into an ignored private JSON plan. It does not add a UE5 character.
 - The castle source contains `Nali0` with `Orders=Patroling` (source spelling),
   `OrderTag=P1`, and four `PatrolPoint` records around the walls. Their checked
   loop is P1 → P2 → p3 → p4 → P1. The Meshy Nali prototype remains private
-  and unrigged; its four arms need a custom rig and animation plan. Use
+  and unskinned; its four arms need custom deformation topology, weights,
+  muscle corrections and animation. Use
   `Nali1` source `Walk` poses, not playable `Nali2` poses, as the initial
-  motion reference. Do not treat the geometry probe or its rejected automatic
-  weights as a game-ready character.
+  motion reference. Do not treat the geometry probe, rejected Meshy remesh,
+  skeleton template or failed automatic weights as a game-ready character.
 
 Choose one bounded next milestone and record exact acceptance criteria before
 editing. Do not infer that a discussion of an idea authorized paid asset
