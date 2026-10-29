@@ -25,7 +25,7 @@ Check Git and the live editor before treating any status below as current.
   available from a fresh clone**. See `docs/asset-pipeline.md` and
   `docs/resource-naming.md`.
 
-## Current checkpoint (2026-10-29, merged PR #21; skeleton layout pending review)
+## Current checkpoint (2026-10-29, merged PR #22; deformation blockout pending review)
 
 The private castle preview contains the evaluated original world, original
 texture assignments, software Lumen lighting, Nanite render chunks, VSM,
@@ -67,6 +67,12 @@ disconnected pieces, so it is rejected for skinning. A new private Blender
 scene contains a 91-bone, four-arm skeleton template and the unchanged visual
 model as a guide. Independent arm parenting and saved readback passed. No
 deformation mesh, skin weights, muscle behavior or walk animation is present.
+The next checkpoint in `docs/milestones/023-nali-deformation-blockout.md`
+adds an independently authored, private low-detail mannequin on that
+skeleton. Its saved GLB has one 91-joint skin, 25 weighted/UV-mapped parts and
+4,656 triangles. All four arms move in a stress pose, but visible shoulder
+gaps and crude anatomy reject it as the final Nali. It has no source textures,
+muscle mechanics, animation or UE5 import.
 
 ## What remains
 
@@ -86,7 +92,8 @@ deformation mesh, skin weights, muscle behavior or walk animation is present.
   muscle corrections and animation. Use
   `Nali1` source `Walk` poses, not playable `Nali2` poses, as the initial
   motion reference. Do not treat the geometry probe, rejected Meshy remesh,
-  skeleton template or failed automatic weights as a game-ready character.
+  skeleton template, blockout or failed automatic weights as a game-ready
+  character.
 
 Choose one bounded next milestone and record exact acceptance criteria before
 editing. Do not infer that a discussion of an idea authorized paid asset
