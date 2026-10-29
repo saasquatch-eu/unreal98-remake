@@ -25,7 +25,7 @@ Check Git and the live editor before treating any status below as current.
   available from a fresh clone**. See `docs/asset-pipeline.md` and
   `docs/resource-naming.md`.
 
-## Current checkpoint (2026-10-28, merged PR #19)
+## Current checkpoint (2026-10-29, merged PR #20; patrol source work pending review)
 
 The private castle preview contains the evaluated original world, original
 texture assignments, software Lumen lighting, Nanite render chunks, VSM,
@@ -57,6 +57,9 @@ weights are required before a usable rig can be claimed.
 The owner can inspect the textured prototype in the private Blender scene
 `data/converted/Unreal/Characters/Nali/review-scene-20261028/Nali_review_ue5.blend`;
 the geometry probe is present but hidden by default.
+The source patrol checkpoint in `docs/milestones/021-nali-patrol-source.md`
+resolves `Nali0` and all four tagged wall points from the checked original
+map into an ignored private JSON plan. It does not add a UE5 character.
 
 ## What remains
 
@@ -70,12 +73,12 @@ the geometry probe is present but hidden by default.
   sounds, original title/menu/HUD, collision and gameplay behavior. These are
   **not** present in the current intro preview.
 - The castle source contains `Nali0` with `Orders=Patroling` (source spelling),
-  `OrderTag=P1`, and four `PatrolPoint` records around the walls. Verify full
-  links and behavior from source before implementing a route. The Meshy Nali
-  prototype remains private and unrigged; its four arms need a custom rig and
-  animation plan. Use `Nali1` source `Walk` poses, not playable `Nali2` poses,
-  as the initial motion reference. Do not treat the geometry probe or its
-  rejected automatic weights as a game-ready character.
+  `OrderTag=P1`, and four `PatrolPoint` records around the walls. Their checked
+  loop is P1 → P2 → p3 → p4 → P1. The Meshy Nali prototype remains private
+  and unrigged; its four arms need a custom rig and animation plan. Use
+  `Nali1` source `Walk` poses, not playable `Nali2` poses, as the initial
+  motion reference. Do not treat the geometry probe or its rejected automatic
+  weights as a game-ready character.
 
 Choose one bounded next milestone and record exact acceptance criteria before
 editing. Do not infer that a discussion of an idea authorized paid asset
